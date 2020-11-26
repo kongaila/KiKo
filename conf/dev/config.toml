@@ -1,0 +1,22 @@
+# 服务名称
+[server]
+  name = "Qiqilike"
+  address = ":1999"
+
+# 服务地址
+
+
+# 日志级别
+[logger]
+  level = "debug"
+
+# 数据库相关
+[database]
+  driver = "mysql"
+[mysql]
+  dbHost = "127.0.0.1"
+  dbPort = 5664
+  dbName = "tieba"
+  dbParams = "parseTime=true&loc=Local"
+  dbUser = "root"
+  dbPasswd = "kong"
