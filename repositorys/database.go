@@ -1,0 +1,30 @@
+package repositorys
+
+import (
+	"QiqiLike/conf"
+	"fmt"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/jinzhu/gorm"
+	"log"
+)
+
+var Db *gorm.DB
+
+func init() {
+	dbType := conf.Viper.GetString("database.driver")
+	host := conf.Viper.GetString("mysql.host")
+	port := conf.Viper.GetString("mysql.port")
+	name := conf.Viper.GetString("mysql.name")
+	params := conf.Viper.GetString("mysql.params")
+	user := conf.Viper.GetString("mysql.user")
+	pass := conf.Viper.GetString("mysql.pass")
+	url := fmt.Sprintf("%s:%s@(%s:%s)/%s?%s", user, pass, host, port, name, params)
+
+	var err error
+	Db, err = gorm.Open(dbType, url)
+	if err != nil {
+		log.Printf("Open mysql failed,err:%v\n", err)
+		panic(err)
+	}
+	Db.SingularTable(true)
+}

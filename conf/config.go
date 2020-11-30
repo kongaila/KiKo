@@ -5,6 +5,8 @@ import (
 )
 
 // 读取的路径, 默认dev
+// 生产 prod
+// 测试 test
 var path = "dev"
 
 // viper 全局实例
