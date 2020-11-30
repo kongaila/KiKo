@@ -8,6 +8,7 @@ import (
 	"log"
 )
 
+// 全局DB对象
 var Db *gorm.DB
 
 func init() {
@@ -27,4 +28,7 @@ func init() {
 		panic(err)
 	}
 	Db.SingularTable(true)
+	//启用日志程序，显示详细日志
+	Db.LogMode(true)
+
 }

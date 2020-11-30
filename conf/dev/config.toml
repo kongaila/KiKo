@@ -17,3 +17,16 @@
   params = "parseTime=true&loc=Local"
   user = "root"
   pass = "kong"
+
+# Redis相关
+[redis]
+  host = "127.0.0.1"
+  port = 6379
+  database = 0
+  auth = ""
+
+# kafka相关
+[kafka]
+  #host = "127.0.0.1"
+  #port = "6379"
+

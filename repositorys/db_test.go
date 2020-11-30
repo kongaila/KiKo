@@ -1,12 +1,11 @@
 package repositorys
 
 import (
-	"database/sql"
+	"log"
 	"testing"
 )
 
-var Db *sql.DB
-
-func connection(t *testing.T) {
-
+func TestConnection(t *testing.T) {
+	e := Db.Error
+	log.Println(e)
 }
