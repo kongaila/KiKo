@@ -1,7 +1,10 @@
 package routers
 
-import "github.com/kataras/iris/v12/core/router"
+import (
+	"QiqiLike/web/controllers"
+	"github.com/kataras/iris/v12/core/router"
+)
 
 func routerUser(party router.Party) {
-	party.Post("/login", nil)
+	party.Post("/register", controllers.PostRegister)
 }
