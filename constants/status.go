@@ -1,4 +1,4 @@
-package constants
+package cs
 
 // 定义状态码以及对应消息
 const (
@@ -11,8 +11,7 @@ const (
 	StatusGatewayTimeout      = 504
 )
 
-var statusText = map[int]string{
-
+var StatusText = map[int]string{
 	StatusOK:                  "成功",
 	StatusNoContent:           "响应无内容",
 	StatusBadRequest:          "错误请求",

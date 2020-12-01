@@ -1,6 +1,7 @@
+title = "Qiqilike"
+
 # 服务相关
 [server]
-  name = "Qiqilike"
   address = ":1999"
 
 # 日志级别

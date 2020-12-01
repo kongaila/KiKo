@@ -1,11 +1,13 @@
 package routers
 
-import "github.com/kataras/iris/v12"
+import (
+	"github.com/kataras/iris/v12"
+)
 
 func Router(app *iris.Application) {
 	app.Get("/ping", pong)
 
-	// 整体配置
+	// 整体路径配置
 	v1 := app.Party("/v1")
 	{
 		// 用户模块路由配置
