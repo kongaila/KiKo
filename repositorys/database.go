@@ -6,6 +6,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	"log"
+	"os"
 )
 
 // 全局DB对象
@@ -30,5 +31,8 @@ func init() {
 	Db.SingularTable(true)
 	//启用日志程序，显示详细日志
 	Db.LogMode(true)
+
+	Db.LogMode(true)
+	Db.SetLogger(log.New(os.Stdout, "\r\n", 0))
 
 }

@@ -3,7 +3,7 @@ package vo
 import cs "QiqiLike/constants"
 
 // 统一响应对象
-type respVO struct {
+type RespVO struct {
 	Msg   string      `json:"msg"`
 	Code  int         `json:"code"`
 	Data  interface{} `json:"data"`
@@ -11,8 +11,8 @@ type respVO struct {
 }
 
 // 统一调用此方法来返回响应实体
-func NewRespVO(code, count int, msg string, data interface{}) *respVO {
-	return &respVO{
+func NewRespVO(code, count int, msg string, data interface{}) *RespVO {
+	return &RespVO{
 		Code:  code,
 		Count: count,
 		Msg:   msg,
@@ -21,21 +21,21 @@ func NewRespVO(code, count int, msg string, data interface{}) *respVO {
 }
 
 // 成功返回响应实体
-func Req200RespVO(count int, data interface{}) *respVO {
-	return NewRespVO(cs.StatusOK, count, cs.StatusText[cs.StatusOK], data)
+func Req200RespVO(count int, msg string, data interface{}) *RespVO {
+	return NewRespVO(cs.StatusOK, count, msg, data)
 }
 
 // 404返回响应实体
-func Req404RespVO(count int, data interface{}) *respVO {
-	return NewRespVO(cs.StatusNotFound, count, cs.StatusText[cs.StatusNotFound], data)
+func Req404RespVO(count int, msg string, data interface{}) *RespVO {
+	return NewRespVO(cs.StatusNotFound, count, msg, data)
 }
 
 // 500返回响应实体
-func Req500RespVO(count int, data interface{}) *respVO {
-	return NewRespVO(cs.StatusInternalServerError, count, cs.StatusText[cs.StatusInternalServerError], data)
+func Req500RespVO(count int, msg string, data interface{}) *RespVO {
+	return NewRespVO(cs.StatusInternalServerError, count, msg, data)
 }
 
 // 204返回响应实体
-func Req204RespVO(count int, data interface{}) *respVO {
-	return NewRespVO(cs.StatusNoContent, count, cs.StatusText[cs.StatusNoContent], data)
+func Req204RespVO(count int, msg string, data interface{}) *RespVO {
+	return NewRespVO(cs.StatusNoContent, count, msg, data)
 }

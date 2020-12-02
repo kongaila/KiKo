@@ -4,20 +4,20 @@ import "time"
 
 // 文章模型
 type TbArticle struct {
-	Id          int32     `gorm:"type:INT(11);AUTO_INCREMENT;NOT NULL"`
-	Uuid        string    `gorm:"type:CHAR(32);NOT NULL"`
-	ClubUuid    string    `gorm:"type:CHAR(32);"`
-	UserUuid    string    `gorm:"type:CHAR(32);"`
-	Title       string    `gorm:"type:VARCHAR(255);"`
-	Content     string    `gorm:"type:TEXT;"`
-	CreateAt    time.Time `gorm:"type:DATETIME(0);"`
-	UpdateAt    time.Time `gorm:"type:DATETIME(0);"`
-	Creater     string    `gorm:"type:VARCHAR(255);"`
-	Updater     string    `gorm:"type:VARCHAR(255);"`
-	OpenNum     int32     `gorm:"type:INT(11);"`
-	Description string    `gorm:"type:VARCHAR(300);"`
-	IsGood      int32     `gorm:"type:INT(2);"`
-	Flag        int32     `gorm:"type:INT(2);"`
-	IsMoney     int32     `gorm:"type:INT(2);"`
-	Money       int32     `gorm:"type:INT(11);"`
+	Id          int32     `json:"id" gorm:"type:INT(11);AUTO_INCREMENT;NOT NULL"`
+	Uuid        string    `json:"uuid" gorm:"type:CHAR(32);NOT NULL"`
+	ClubUuid    string    `json:"clubUuid" gorm:"type:CHAR(32);"`
+	UserUuid    string    `json:"userUuid" gorm:"type:CHAR(32);"`
+	Title       string    `json:"title" gorm:"type:VARCHAR(255);"`
+	Content     string    `json:"content" gorm:"type:TEXT;"`
+	CreateAt    time.Time `json:"createAt" gorm:"type:DATETIME(0);"`
+	UpdateAt    time.Time `json:"updateAt" gorm:"type:DATETIME(0);"`
+	Creater     string    `json:"creater" gorm:"type:VARCHAR(255);"`
+	Updater     string    `json:"updater" gorm:"type:VARCHAR(255);"`
+	OpenNum     int32     `json:"openNum" gorm:"type:INT(11);"`
+	Description string    `json:"description" gorm:"type:VARCHAR(300);"`
+	IsGood      int32     `json:"isGood" gorm:"type:INT(2);"`
+	Flag        int32     `json:"flag" gorm:"type:INT(2);"`
+	IsMoney     int32     `json:"isMoney" gorm:"type:INT(2);"`
+	Money       int32     `json:"money" gorm:"type:INT(11);"`
 }

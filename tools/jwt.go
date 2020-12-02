@@ -41,3 +41,21 @@ func ParseToken(token string) (*datamodels.Token, error) {
 	}
 	return &t, nil
 }
+
+// 封装好的方法直接返回uuid
+func ParseTokenUuid(token string) (string, error) {
+	t, err := ParseToken(token)
+	if err != nil {
+		return "", err
+	}
+	return t.Uuid, nil
+}
+
+// 封装好的方法直接返回username
+func ParseTokenUserName(token string) (string, error) {
+	t, err := ParseToken(token)
+	if err != nil {
+		return "", err
+	}
+	return t.UserName, nil
+}
