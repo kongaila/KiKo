@@ -12,7 +12,7 @@ title = "Qiqilike"
 [database]
   driver = "mysql"
 [mysql]
-  host = "192.168.83.203"
+  addr = "192.168.83.203"
   port = 5664
   name = "tieba"
   params = "parseTime=true&loc=Local"
@@ -21,10 +21,13 @@ title = "Qiqilike"
 
 # Redis相关
 [redis]
-  host = "127.0.0.1"
+  addr = "127.0.0.1"
   port = 6379
   database = 0
   auth = ""
+  maxIdle = 2
+  maxActive = 15
+  idleTimeout = 2000
 
 # kafka相关
 [kafka]

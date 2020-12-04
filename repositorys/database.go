@@ -16,13 +16,13 @@ var Db *gorm.DB
 func init() {
 	// 数据库
 	dbType := conf.Viper.GetString("database.driver")
-	host := conf.Viper.GetString("mysql.host")
+	addr := conf.Viper.GetString("mysql.addr")
 	port := conf.Viper.GetString("mysql.port")
 	name := conf.Viper.GetString("mysql.name")
 	params := conf.Viper.GetString("mysql.params")
 	user := conf.Viper.GetString("mysql.user")
 	pass := conf.Viper.GetString("mysql.pass")
-	url := fmt.Sprintf("%s:%s@(%s:%s)/%s?%s", user, pass, host, port, name, params)
+	url := fmt.Sprintf("%s:%s@(%s:%s)/%s?%s", user, pass, addr, port, name, params)
 
 	var err error
 	Db, err = gorm.Open(dbType, url)
@@ -38,7 +38,5 @@ func init() {
 	Db.DB().SetMaxIdleConns(10)                   //最大空闲连接数
 	Db.DB().SetMaxOpenConns(30)                   //最大连接数
 	Db.DB().SetConnMaxLifetime(time.Second * 300) //设置连接空闲超时
-
-	// Redis配置
 
 }
