@@ -42,6 +42,7 @@ func (user *TbUser) GeneratePass() {
 
 // 校验用户名和密码
 func (user *TbUser) CheckUserNameAndPass() (ok bool) {
+	// TODO 校验用户名和密码
 	ok = true
 	return
 }

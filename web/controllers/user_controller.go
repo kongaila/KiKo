@@ -3,8 +3,14 @@ package controllers
 import (
 	"QiqiLike/datamodels/domain"
 	"QiqiLike/datamodels/vo"
+	"QiqiLike/service"
 	"github.com/kataras/iris/v12"
 )
+
+type UserController struct {
+	Service service.UserService
+	Ctx     iris.Context
+}
 
 // 注册接口
 func PostRegister(ctx iris.Context) {
@@ -12,7 +18,8 @@ func PostRegister(ctx iris.Context) {
 	var result *vo.RespVO
 	user := domain.TbUser{}
 	_ = ctx.ReadJSON(&user)
-	defer ctx.JSON(result)
+	defer func() { ctx.JSON(result) }()
+
 	if ok := user.CheckUserNameAndPass(); !ok {
 		result = vo.Req204RespVO(0, "账号不符合规则", nil)
 		return
