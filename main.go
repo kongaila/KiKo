@@ -2,6 +2,7 @@ package main
 
 import (
 	"QiqiLike/conf"
+	cs "QiqiLike/constants"
 	"QiqiLike/routers"
 	"github.com/kataras/iris/v12"
 	"log"
@@ -15,9 +16,9 @@ func main() {
 	// 配置路由
 	routers.Router(app)
 	go func() {
-		log.Printf(" [INFO] 项目启动到端口%s\n", conf.Viper.GetString("server.address"))
+		log.Printf(cs.INFO+"项目启动到端口%s\n", conf.Viper.GetString("server.address"))
 		if err := app.Run(iris.Addr(conf.Viper.GetString("server.address"))); err != nil {
-			log.Fatalf(" [ERROR] 项目启动到地址:%s err:%v\n", conf.Viper.GetString("server.address"), err)
+			log.Fatalf(cs.ERROR+"项目启动到地址:%s err:%v\n", conf.Viper.GetString("server.address"), err)
 		}
 	}()
 

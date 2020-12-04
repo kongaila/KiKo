@@ -7,12 +7,14 @@ import (
 	"github.com/jinzhu/gorm"
 	"log"
 	"os"
+	"time"
 )
 
 // 全局DB对象
 var Db *gorm.DB
 
 func init() {
+	// 数据库
 	dbType := conf.Viper.GetString("database.driver")
 	host := conf.Viper.GetString("mysql.host")
 	port := conf.Viper.GetString("mysql.port")
@@ -31,8 +33,12 @@ func init() {
 	Db.SingularTable(true)
 	//启用日志程序，显示详细日志
 	Db.LogMode(true)
-
-	Db.LogMode(true)
 	Db.SetLogger(log.New(os.Stdout, "\r\n", 0))
+	// 连接池设置
+	Db.DB().SetMaxIdleConns(10)                   //最大空闲连接数
+	Db.DB().SetMaxOpenConns(30)                   //最大连接数
+	Db.DB().SetConnMaxLifetime(time.Second * 300) //设置连接空闲超时
+
+	// Redis配置
 
 }

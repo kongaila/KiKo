@@ -6,8 +6,12 @@ import (
 	"sync"
 )
 
+type LoginQuery func(user domain.TbUser) bool
+
 type LoginRepository interface {
 	InsertUser(user *domain.TbUser) (string, error)
+	CheckUser(userName string) bool
+	Detail(user *domain.TbUser) (ok bool)
 }
 
 func NewLoginRepository(source *gorm.DB) *loginRepository {
@@ -17,6 +21,26 @@ func NewLoginRepository(source *gorm.DB) *loginRepository {
 type loginRepository struct {
 	source *gorm.DB
 	mux    sync.RWMutex
+}
+
+func (l *loginRepository) Detail(user *domain.TbUser) (ok bool) {
+	var i int
+	l.source.Table("tb_user").Where("user_name = ? and pass = ? ", user.UserName, user.Pass).Count(&i)
+	if i == 1 {
+		ok = true
+		return
+	}
+	ok = false
+	return
+}
+
+func (l *loginRepository) CheckUser(userName string) bool {
+	var i int
+	l.source.Table("tb_user").Where("user_name = ?", userName).Count(&i)
+	if i == 0 {
+		return true
+	}
+	return false
 }
 
 func (l *loginRepository) InsertUser(user *domain.TbUser) (string, error) {

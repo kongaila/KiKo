@@ -1,8 +1,6 @@
 package domain
 
 import (
-	"crypto/sha256"
-	"encoding/hex"
 	"time"
 )
 
@@ -32,12 +30,6 @@ type TbUser struct {
 	Creater     string    `json:"creater" gorm:"type:VARCHAR(50);"`
 	Age         int32     `json:"age" gorm:"type:INT(11);"`
 	PostNum     int32     `json:"postNum" gorm:"type:INT(11);"`
-}
-
-// 密码加密
-func (user *TbUser) GeneratePass() {
-	sum256 := sha256.Sum256([]byte(user.Pass))
-	user.Pass = hex.EncodeToString(sum256[:])
 }
 
 // 校验用户名和密码
