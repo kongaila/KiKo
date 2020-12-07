@@ -4,6 +4,10 @@ title = "Qiqilike"
 [server]
   address = ":1999"
 
+# API相关
+[api]
+  prefix = "/api/v1"
+
 # 日志级别
 [logger]
   level = "debug"

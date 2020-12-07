@@ -4,6 +4,7 @@ import (
 	"QiqiLike/conf"
 	cs "QiqiLike/constants"
 	"QiqiLike/routers"
+	"QiqiLike/web/middleware"
 	"github.com/kataras/iris/v12"
 	"log"
 	"os"
@@ -13,6 +14,8 @@ import (
 
 func main() {
 	app := iris.New()
+	// 配置中间件
+	middleware.RegisterMiddleware(app)
 	// 配置路由
 	routers.Router(app)
 	go func() {
@@ -24,6 +27,6 @@ func main() {
 
 	quit := make(chan os.Signal)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
-	// 优雅的退出
+	// 监听退出信号
 	<-quit
 }
