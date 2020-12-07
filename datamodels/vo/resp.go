@@ -39,3 +39,8 @@ func Req500RespVO(count int, msg string, data interface{}) *RespVO {
 func Req204RespVO(count int, msg string, data interface{}) *RespVO {
 	return NewRespVO(cs.StatusNoContent, count, msg, data)
 }
+
+// 204返回响应实体
+func ReqNotTokenRespVO(count int, msg string, data interface{}) *RespVO {
+	return NewRespVO(cs.NotToken, count, msg, data)
+}

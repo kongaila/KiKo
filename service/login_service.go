@@ -5,6 +5,7 @@ import (
 	"QiqiLike/datamodels/domain"
 	"QiqiLike/repositorys"
 	"QiqiLike/tools"
+	"QiqiLike/tools/redis"
 	"errors"
 	"log"
 	"time"
@@ -28,9 +29,11 @@ func (l *loginService) UserDetail(user *domain.TbUser) (token string, ok bool) {
 	if ok = l.repo.Detail(user); !ok {
 		return
 	}
-	// TODO 进行获取token操作
 	token, _ = tools.GetJWTString(user.UserName, user.Uuid)
-
+	err := redis.SetEx(token, token, time.Minute.Seconds()*30)
+	if err != nil {
+		return
+	}
 	return
 }
 
@@ -39,7 +42,7 @@ func (l *loginService) Create(user *domain.TbUser) (string, error) {
 	if ok := l.repo.CheckUser(user.UserName); !ok {
 		return "", errors.New("账号名已存在")
 	}
-	tools.GeneratePass(user.Pass)
+	user.Pass = tools.GeneratePass(user.Pass)
 	user.CreateAt = time.Now()
 	user.Creater = user.UserName
 	user.Uuid = tools.GenerateUUID()

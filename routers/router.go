@@ -1,7 +1,7 @@
 package routers
 
 import (
-	"QiqiLike/conf"
+	cs "QiqiLike/constants"
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/mvc"
 )
@@ -10,7 +10,7 @@ func Router(app *iris.Application) {
 	app.Get("/ping", pong)
 
 	// 整体路径配置
-	api := app.Party(conf.Viper.GetString("api.prefix"))
+	api := app.Party(cs.Prefix)
 	{
 		// 登录注册模块路由配置
 		mvc.Configure(api.Party("/"), login)

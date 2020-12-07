@@ -5,7 +5,9 @@ import (
 	cs "QiqiLike/constants"
 	"QiqiLike/datamodels"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/kataras/iris/v12"
 	"github.com/mitchellh/mapstructure"
+	"strings"
 	"time"
 )
 
@@ -16,7 +18,7 @@ func GetJWTString(userName, uuid string) (string, error) {
 		"uuid":     uuid,
 		"iss":      conf.Viper.GetString("title"),
 		"iat":      time.Now().Unix(),
-		"exp":      time.Now().Add(20 * time.Minute * time.Duration(1)).Unix(),
+		"exp":      time.Now().Add(30 * time.Minute * time.Duration(1)).Unix(),
 	})
 	// 把token已约定的加密方式和加密秘钥加密
 	tokenString, err := token.SignedString([]byte(cs.Salt))
@@ -58,4 +60,9 @@ func ParseTokenUserName(token string) (string, error) {
 		return "", err
 	}
 	return t.UserName, nil
+}
+
+func GetHeaderToken(ctx iris.Context) string {
+	token := ctx.GetHeader("Authorization")
+	return strings.Replace(token, "Bearer ", "", 1)
 }

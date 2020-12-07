@@ -4,6 +4,8 @@ import (
 	"QiqiLike/datamodels/domain"
 	"QiqiLike/datamodels/vo"
 	"QiqiLike/service"
+	"QiqiLike/tools"
+	"QiqiLike/tools/redis"
 	"github.com/kataras/iris/v12"
 )
 
@@ -44,5 +46,13 @@ func (l *LoginController) PostRegister() (result *vo.RespVO) {
 		return
 	}
 	result = vo.Req200RespVO(1, "账号创建成功", uuid)
+	return
+}
+
+// 退出，在redis中将token删除了
+func (l *LoginController) PostExit() (result *vo.RespVO) {
+	token := tools.GetHeaderToken(l.Ctx)
+	_ = redis.Del(token)
+	result = vo.Req200RespVO(1, "退出成功", "")
 	return
 }

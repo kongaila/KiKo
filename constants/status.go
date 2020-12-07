@@ -9,6 +9,7 @@ const (
 	StatusInternalServerError = 500
 	StatusBadGateway          = 502
 	StatusGatewayTimeout      = 504
+	NotToken                  = 666
 )
 
 var StatusText = map[int]string{
@@ -19,4 +20,5 @@ var StatusText = map[int]string{
 	StatusInternalServerError: "服务器异常",
 	StatusBadGateway:          "过多的请求",
 	StatusGatewayTimeout:      "请求超时",
+	NotToken:                  "没有token值",
 }

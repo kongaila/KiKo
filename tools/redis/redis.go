@@ -1,8 +1,11 @@
-package server
+package redis
 
 import (
+	. "QiqiLike/server"
 	"github.com/garyburd/redigo/redis"
 )
+
+// redis操作封装工具方法
 
 // get
 func GetString(key string) (string, error) {
@@ -19,11 +22,13 @@ func SetString(key, value string) error {
 	return err
 }
 
-// 验证是否存在
-func Exists(key string) (ok bool) {
+// 验证是否存在并返回剩余时间
+func Exists(key string) (ex float64, ok bool) {
 	r := Cache.Get()
 	defer r.Close()
 	ok, _ = redis.Bool(r.Do("EXISTS", key))
+	value, _ := redis.Int64(r.Do("TTL", key))
+	ex = float64(value)
 	return
 }
 
@@ -36,7 +41,7 @@ func Del(key string) error {
 }
 
 // set ex
-func SetEx(key, value string, ex int) error {
+func SetEx(key, value string, ex float64) error {
 	r := Cache.Get()
 	defer r.Close()
 	_, err := r.Do("SET", key, value, "EX", ex)
@@ -44,7 +49,7 @@ func SetEx(key, value string, ex int) error {
 }
 
 // set found ex
-func SetFoundEx(key string, ex int) error {
+func SetFoundEx(key string, ex int64) error {
 	r := Cache.Get()
 	defer r.Close()
 	_, err := r.Do("EXPIRE", key, ex)
