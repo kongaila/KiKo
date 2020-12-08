@@ -10,8 +10,9 @@ import (
 )
 
 type LoginController struct {
-	Service service.LoginService
-	Ctx     iris.Context
+	AttrLoginService service.LoginService
+	AttrClubService  service.ClubService
+	Ctx              iris.Context
 }
 
 // 登录
@@ -21,7 +22,7 @@ func (l *LoginController) PostLogin() (result *vo.RespVO) {
 		result = vo.Req204RespVO(0, "数据有误", nil)
 		return
 	}
-	token, ok := l.Service.UserDetail(&user)
+	token, ok := l.AttrLoginService.UserDetail(&user)
 	if !ok {
 		result = vo.Req204RespVO(0, "账号或者密码错误", nil)
 		return
@@ -40,7 +41,7 @@ func (l *LoginController) PostRegister() (result *vo.RespVO) {
 		result = vo.Req204RespVO(0, "账号不符合规则", nil)
 		return
 	}
-	uuid, err := l.Service.Create(&user)
+	uuid, err := l.AttrLoginService.Create(&user)
 	if err != nil {
 		result = vo.Req204RespVO(0, err.Error(), nil)
 		return

@@ -4,7 +4,7 @@ import "time"
 
 // 贴吧模型
 type TbClub struct {
-	Id           int32     `json:"id" gorm:"type:INT(11);AUTO_INCREMENT;NOT NULL"`
+	Id           int32     `json:"-" gorm:"type:INT(11);AUTO_INCREMENT;NOT NULL"`
 	Uuid         string    `json:"uuid" gorm:"type:CHAR(32);NOT NULL"`
 	MasterName   string    `json:"masterName" gorm:"type:VARCHAR(255);"`
 	MasterUuid   string    `json:"masterUuid" gorm:"type:CHAR(32);"`
@@ -17,7 +17,8 @@ type TbClub struct {
 	ArticleNum   int32     `json:"articleNum" gorm:"type:INT(11);"`
 	MemberNum    int32     `json:"memberNum" gorm:"type:INT(11);"`
 	CreateAt     time.Time `json:"createAt" gorm:"type:DATETIME(0);"`
-	UpdateAt     time.Time `json:"updateAt" gorm:"type:DATETIME(0);"`
-	Creater      string    `json:"creater" gorm:"type:VARCHAR(255);"`
-	Updater      string    `json:"updater" gorm:"type:VARCHAR(255);"`
+	UpdateAt     time.Time `json:"-" gorm:"type:DATETIME(0);"`
+	Creater      string    `json:"-" gorm:"type:VARCHAR(255);"`
+	Updater      string    `json:"-" gorm:"type:VARCHAR(255);"`
+	Status       int32     `json:"-" gorm:"type:type:INT(2);"`
 }

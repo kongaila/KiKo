@@ -14,7 +14,7 @@ type LoginRepository interface {
 	Detail(user *domain.TbUser) (ok bool)
 }
 
-func NewLoginRepository(source *gorm.DB) *loginRepository {
+func NewLoginRepository(source *gorm.DB) LoginRepository {
 	return &loginRepository{source: source}
 }
 
@@ -26,6 +26,7 @@ type loginRepository struct {
 func (l *loginRepository) Detail(user *domain.TbUser) (ok bool) {
 	var i int
 	l.source.Table("tb_user").Where("user_name = ? and pass = ? ", user.UserName, user.Pass).Count(&i)
+	l.source.First(&user)
 	if i == 1 {
 		ok = true
 		return

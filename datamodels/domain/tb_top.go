@@ -4,7 +4,7 @@ import "time"
 
 // 热榜模型
 type TbTop struct {
-	Id          int32     `json:"id" gorm:"type:INT(11);AUTO_INCREMENT;NOT NULL"`
+	Id          int32     `json:"-" gorm:"type:INT(11);AUTO_INCREMENT;NOT NULL"`
 	Description string    `json:"description" gorm:"type:VARCHAR(200);"`
 	CreateAt    time.Time `json:"createAt" gorm:"type:DATETIME(0);"`
 	Num         int32     `json:"num" gorm:"type:INT(11);"`

@@ -3,7 +3,7 @@ package domain
 import "time"
 
 type TbGold struct {
-	Id       int32     `json:"id" gorm:"type:INT(11);AUTO_INCREMENT;NOT NULL"`
+	Id       int32     `json:"-" gorm:"type:INT(11);AUTO_INCREMENT;NOT NULL"`
 	Uuid     string    `json:"uuid" gorm:"type:CHAR(32);NOT NULL"`
 	CreateAt time.Time `json:"createAt" gorm:"type:DATETIME(0);"`
 	UserUuid string    `json:"userUuid" gorm:"type:CHAR(32);"`

@@ -4,7 +4,7 @@ import "time"
 
 // 管理员模型
 type TbAdmin struct {
-	Id            int32     `json:"id" gorm:"type:INT(11);AUTO_INCREMENT;NOT NULL"`
+	Id            int32     `json:"-" gorm:"type:INT(11);AUTO_INCREMENT;NOT NULL"`
 	Uuid          string    `json:"uuid" gorm:"type:CHAR(32);NOT NULL"`
 	UserName      string    `json:"userName" gorm:"type:VARCHAR(255);"`
 	Pass          string    `json:"pass" gorm:"type:VARCHAR(255);"`

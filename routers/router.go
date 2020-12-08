@@ -12,11 +12,12 @@ func Router(app *iris.Application) {
 	// 整体路径配置
 	api := app.Party(cs.Prefix)
 	{
+
 		// 登录注册模块路由配置
 		mvc.Configure(api.Party("/"), login)
-
+		// 贴吧模块
+		mvc.Configure(api.Party("/club"), club)
 		// 用户模块
-		//routerUser(api)
 
 		// 贴吧模块
 		// 文章模块
