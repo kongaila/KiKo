@@ -13,6 +13,7 @@ type ClubController struct {
 	AttrLoginService    service.LoginService
 	AttrClubService     service.ClubService
 	AttrUserClubService service.UserClubService
+	AttrArticleService  service.ArticleService
 	Ctx                 iris.Context
 }
 
@@ -48,6 +49,7 @@ func (c *ClubController) PostCreate() (result *vo.RespVO) {
 
 // 获得贴吧列表
 func (c *ClubController) GetMany() (result *vo.RespVO) {
+	c.Ctx.URLParam("uuid")
 	params := c.Ctx.URLParams()
 	data, count, err := c.AttrClubService.GetClubMany(params)
 	if err != nil {
@@ -55,5 +57,31 @@ func (c *ClubController) GetMany() (result *vo.RespVO) {
 		return
 	}
 	result = vo.Req200RespVO(count, "查询成功", data)
+	return
+}
+
+// 获得一个贴吧详情
+func (c *ClubController) GetBy() (result *vo.RespVO) {
+	uuid := c.Ctx.URLParam("uuid")
+	var club domain.TbClub
+	var err error
+	club, err = c.AttrClubService.GetClubDetail(uuid)
+	if err != nil {
+		result = vo.Req500RespVO(0, "查询失败", nil)
+		return
+	}
+	result = vo.Req200RespVO(1, "查询成功", club)
+	return
+}
+
+// 获得一个贴吧的全部帖子(分页)
+func (c *ClubController) GetArticleMany() (result *vo.RespVO) {
+	params := c.Ctx.URLParams()
+	articles, count, err := c.AttrArticleService.GetArticleMany(params)
+	if err != nil {
+		result = vo.Req500RespVO(0, "查询失败", nil)
+		return
+	}
+	result = vo.Req200RespVO(count, "查询成功", articles)
 	return
 }

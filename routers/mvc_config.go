@@ -13,6 +13,6 @@ func login(app *mvc.Application) {
 
 // 贴吧模块
 func club(app *mvc.Application) {
-	app.Register(getLoginService(), getClubService(), getUserClubService())
+	app.Register(getLoginService(), getClubService(), getUserClubService(), getArticleService())
 	app.Handle(new(controllers.ClubController))
 }

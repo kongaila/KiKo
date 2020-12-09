@@ -10,6 +10,7 @@ import (
 type ClubService interface {
 	GetClubMany(params map[string]string) (data []domain.TbClub, count int, err error)
 	Create(club *domain.TbClub) (ok bool)
+	GetClubDetail(s string) (domain.TbClub, error)
 }
 
 func NewClubService(repo repositorys.ClubRepository) ClubService {
@@ -18,6 +19,10 @@ func NewClubService(repo repositorys.ClubRepository) ClubService {
 
 type clubService struct {
 	repo repositorys.ClubRepository
+}
+
+func (c *clubService) GetClubDetail(uuid string) (domain.TbClub, error) {
+	return c.repo.GetClubDetail(uuid)
 }
 
 func (c *clubService) Create(club *domain.TbClub) (ok bool) {

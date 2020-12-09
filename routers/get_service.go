@@ -28,3 +28,9 @@ func getUserClubService() service.UserClubService {
 	dao := repo.NewUserClubRepository(repo.Db)
 	return service.NewUserClubService(dao)
 }
+
+// 获得帖子Service
+func getArticleService() service.ArticleService {
+	dao := repo.NewArticleRepository(repo.Db)
+	return service.NewArticleService(dao)
+}

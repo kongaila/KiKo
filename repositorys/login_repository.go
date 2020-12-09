@@ -26,7 +26,7 @@ type loginRepository struct {
 func (l *loginRepository) Detail(user *domain.TbUser) (ok bool) {
 	var i int
 	l.source.Table("tb_user").Where("user_name = ? and pass = ? ", user.UserName, user.Pass).Count(&i)
-	l.source.First(&user)
+	l.source.Where("user_name = ? and pass = ? ", user.UserName, user.Pass).First(&user)
 	if i == 1 {
 		ok = true
 		return
