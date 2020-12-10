@@ -12,18 +12,24 @@ func Router(app *iris.Application) {
 	// 整体路径配置
 	api := app.Party(cs.Prefix)
 	{
-
-		// 登录注册模块路由配置
+		// 前台
 		mvc.Configure(api.Party("/"), login)
-		// 贴吧模块
 		mvc.Configure(api.Party("/club"), club)
-		// 用户模块
+		mvc.Configure(api.Party("/article"), article)
+		mvc.Configure(api.Party("/user"), user)
+		mvc.Configure(api.Party("/like"), like)
+		mvc.Configure(api.Party("/comment"), comment)
+		mvc.Configure(api.Party("/top"), top)
+		mvc.Configure(api.Party("/bulletin"), bulletin)
 
-		// 贴吧模块
-		// 文章模块
-		// 个人中心模块
-		// 热榜模块
+		// 后台
+		api = api.Party("/admin")
+		{
+			mvc.Configure(api.Party("/admin"), admin)
+
+		}
 	}
+
 }
 
 // 测试ping

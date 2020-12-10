@@ -32,9 +32,7 @@ func (c *clubRepository) GetClubDetail(uuid string) (domain.TbClub, error) {
 
 }
 
-func (c *clubRepository) GetClubMany(params map[string]string) ([]domain.TbClub, int, error) {
-	var data []domain.TbClub
-	var count int
+func (c *clubRepository) GetClubMany(params map[string]string) (data []domain.TbClub, count int, err error) {
 	page, err1 := strconv.Atoi(params["page"])
 	limit, err2 := strconv.Atoi(params["limit"])
 	if err1 != nil || err2 != nil {
@@ -44,7 +42,6 @@ func (c *clubRepository) GetClubMany(params map[string]string) ([]domain.TbClub,
 	c.source.Limit(limit).Offset((page - 1) * limit).Order("create_at desc").Find(&data)
 	// 获取总条数
 	c.source.Model(&domain.TbClub{}).Count(&count)
-
 	return data, count, nil
 }
 

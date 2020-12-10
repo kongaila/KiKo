@@ -9,7 +9,9 @@ import (
 )
 
 type ArticleRepository interface {
-	GetArticleMany(map[string]string) ([]domain.TbArticle, int, error)
+	GetArticleManyRepo(map[string]string) ([]domain.TbArticle, int, error)
+	CreateRepo(article *domain.TbArticle) bool
+	SelectArticleDetailRepo(uuid string) (domain.TbArticle, error)
 }
 
 func NewArticleRepository(source *gorm.DB) ArticleRepository {
@@ -21,14 +23,36 @@ type articleRepository struct {
 	mux    sync.RWMutex
 }
 
-func (a *articleRepository) GetArticleMany(params map[string]string) (articles []domain.TbArticle, count int, err error) {
+func (a *articleRepository) SelectArticleDetailRepo(uuid string) (article domain.TbArticle, err error) {
+	// 一组操作事务， 先将热度+1， 然后查询数据
+	tx := a.source.Begin()
+	if err = tx.Model(domain.TbArticle{}).Update("open_num", gorm.Expr("open_num + 1")).Where("uuid = ? ", uuid).Error; err != nil {
+		tx.Rollback()
+		return
+	}
+	if err = tx.Model(domain.TbArticle{}).First(&article).Error; err != nil {
+		tx.Rollback()
+		return
+	}
+	tx.Commit()
+	return
+}
+
+func (a *articleRepository) CreateRepo(article *domain.TbArticle) bool {
+	if db := a.source.Create(&article); db.Error != nil {
+		return false
+	}
+	return true
+}
+
+func (a *articleRepository) GetArticleManyRepo(params map[string]string) (articles []domain.TbArticle, count int, err error) {
 	uuid := params["uuid"]
 	db := a.source
 	if !strings.EqualFold(uuid, "") {
 		db = db.Where("club_uuid = ? ", uuid)
 	}
 	// 获取总条数
-	db.Count(&count)
+	db.Table("tb_article").Count(&count)
 	page, _ := strconv.Atoi(params["page"])
 	limit, _ := strconv.Atoi(params["limit"])
 	if page != 0 && limit != 0 {
@@ -36,7 +60,5 @@ func (a *articleRepository) GetArticleMany(params map[string]string) (articles [
 	}
 	// TODO 添加可能的随机
 	db.Order("open_num desc ").Find(&articles)
-
 	return
-
 }

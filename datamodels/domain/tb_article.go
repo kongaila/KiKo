@@ -12,12 +12,14 @@ type TbArticle struct {
 	Content     string    `json:"content" gorm:"type:TEXT;"`
 	CreateAt    time.Time `json:"createAt" gorm:"type:DATETIME(0);"`
 	UpdateAt    time.Time `json:"updateAt" gorm:"type:DATETIME(0);"`
-	Creater     string    `json:"creater" gorm:"type:VARCHAR(255);"`
-	Updater     string    `json:"updater" gorm:"type:VARCHAR(255);"`
+	Creater     string    `json:"-" gorm:"type:VARCHAR(255);"`
+	Updater     string    `json:"-" gorm:"type:VARCHAR(255);"`
 	OpenNum     int32     `json:"openNum" gorm:"type:INT(11);"`
 	Description string    `json:"description" gorm:"type:VARCHAR(300);"`
 	IsGood      int32     `json:"isGood" gorm:"type:INT(2);"`
 	Flag        int32     `json:"flag" gorm:"type:INT(2);"`
 	IsMoney     int32     `json:"isMoney" gorm:"type:INT(2);"`
 	Money       int32     `json:"money" gorm:"type:INT(11);"`
+	Type        string    `json:"type" gorm:"type:VARCHAR(255);"`
+	TypeName    string    `json:"typeName" gorm:"type:VARCHAR(255);"`
 }

@@ -14,6 +14,7 @@ type ClubController struct {
 	AttrClubService     service.ClubService
 	AttrUserClubService service.UserClubService
 	AttrArticleService  service.ArticleService
+	AttrUserService     service.UserService
 	Ctx                 iris.Context
 }
 
@@ -25,11 +26,11 @@ func (c *ClubController) PostCreate() (result *vo.RespVO) {
 		return
 	}
 	if club.MasterUuid, club.MasterName, _ = tools.ParseHeaderToken(c.Ctx); club.MasterUuid == "" || club.MasterName == "" {
-		result = vo.Req200RespVO(1, "登录信息有误", nil)
+		result = vo.Req204RespVO(1, "登录信息有误", nil)
 		return
 	}
 	if ok := c.AttrClubService.Create(&club); !ok {
-		result = vo.Req200RespVO(1, "添加失败", nil)
+		result = vo.Req204RespVO(1, "添加失败", nil)
 		return
 	}
 	userClub := domain.TbUserClub{
@@ -49,7 +50,6 @@ func (c *ClubController) PostCreate() (result *vo.RespVO) {
 
 // 获得贴吧列表
 func (c *ClubController) GetMany() (result *vo.RespVO) {
-	c.Ctx.URLParam("uuid")
 	params := c.Ctx.URLParams()
 	data, count, err := c.AttrClubService.GetClubMany(params)
 	if err != nil {
@@ -61,8 +61,7 @@ func (c *ClubController) GetMany() (result *vo.RespVO) {
 }
 
 // 获得一个贴吧详情
-func (c *ClubController) GetBy() (result *vo.RespVO) {
-	uuid := c.Ctx.URLParam("uuid")
+func (c *ClubController) GetBy(uuid string) (result *vo.RespVO) {
 	var club domain.TbClub
 	var err error
 	club, err = c.AttrClubService.GetClubDetail(uuid)
@@ -77,11 +76,23 @@ func (c *ClubController) GetBy() (result *vo.RespVO) {
 // 获得一个贴吧的全部帖子(分页)
 func (c *ClubController) GetArticleMany() (result *vo.RespVO) {
 	params := c.Ctx.URLParams()
-	articles, count, err := c.AttrArticleService.GetArticleMany(params)
+	articles, count, err := c.AttrArticleService.GetArticleManySer(params)
 	if err != nil {
 		result = vo.Req500RespVO(0, "查询失败", nil)
 		return
 	}
 	result = vo.Req200RespVO(count, "查询成功", articles)
+	return
+}
+
+// 获得一个贴吧的全部用户
+func (c *ClubController) GetUserMany() (result *vo.RespVO) {
+	params := c.Ctx.URLParams()
+	users, count, err := c.AttrUserService.GetUserManySer(params)
+	if err != nil {
+		result = vo.Req500RespVO(0, "查询失败", nil)
+		return
+	}
+	result = vo.Req200RespVO(count, "查询成功", users)
 	return
 }

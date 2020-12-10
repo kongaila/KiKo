@@ -34,3 +34,39 @@ func getArticleService() service.ArticleService {
 	dao := repo.NewArticleRepository(repo.Db)
 	return service.NewArticleService(dao)
 }
+
+// 获得喜欢Service
+func getLikeService() service.LikeService {
+	dao := repo.NewLikeRepository(repo.Db)
+	return service.NewLikeService(dao)
+}
+
+// 获得评论Service
+func getCommentService() service.CommentService {
+	dao := repo.NewCommentRepository(repo.Db)
+	return service.NewCommentService(dao)
+}
+
+// 获得搜索Service
+func getSearchService() service.SearchService {
+	dao := repo.NewSearchRepository(repo.Db)
+	return service.NewSearchService(dao)
+}
+
+// 获得热榜Service
+func getTopService() service.TopService {
+	dao := repo.NewTopRepository(repo.Db)
+	return service.TopService(dao)
+}
+
+// 获得管理员Service
+func getAdminService() service.AdminService {
+	dao := repo.NewAdminRepository(repo.Db)
+	return service.NewAdminService(dao)
+}
+
+// 获得公告栏Service
+func getBulletinService() service.BulletinService {
+	dao := repo.NewBulletinRepository(repo.Db)
+	return service.NewBulletinService(dao)
+}
