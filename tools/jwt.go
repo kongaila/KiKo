@@ -60,6 +60,6 @@ func GetHeaderToken(ctx iris.Context) string {
 }
 
 // 封装好的方法从请求头中直接返回uuid和username
-func ParseHeaderToken(ctx iris.Context) (string, string, error) {
+func ParseHeaderToken(ctx iris.Context) (userUuid string, userName string, err error) {
 	return ParseTokenUuidAndUserName(GetHeaderToken(ctx))
 }

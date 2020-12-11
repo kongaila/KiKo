@@ -6,12 +6,14 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"time"
 )
 
 type ArticleRepository interface {
 	GetArticleManyRepo(map[string]string) ([]domain.TbArticle, int, error)
 	CreateRepo(article *domain.TbArticle) bool
 	SelectArticleDetailRepo(uuid string) (domain.TbArticle, error)
+	CheckArticle(s string) bool
 }
 
 func NewArticleRepository(source *gorm.DB) ArticleRepository {
@@ -23,14 +25,23 @@ type articleRepository struct {
 	mux    sync.RWMutex
 }
 
+func (a *articleRepository) CheckArticle(uuid string) bool {
+	var count int
+	a.source.Model(&domain.TbArticle{}).Where("user_uuid = ? and article_uuid = ?", uuid).Count(&count)
+	if count > 0 {
+		return false
+	}
+	return true
+}
+
 func (a *articleRepository) SelectArticleDetailRepo(uuid string) (article domain.TbArticle, err error) {
 	// 一组操作事务， 先将热度+1， 然后查询数据
 	tx := a.source.Begin()
-	if err = tx.Model(domain.TbArticle{}).Update("open_num", gorm.Expr("open_num + 1")).Where("uuid = ? ", uuid).Error; err != nil {
+	if err = tx.Model(&domain.TbArticle{}).Where("uuid = ? ", uuid).Update("open_num", gorm.Expr("open_num + ?", 1)).Update("updated_at", time.Now()).Error; err != nil {
 		tx.Rollback()
 		return
 	}
-	if err = tx.Model(domain.TbArticle{}).First(&article).Error; err != nil {
+	if err = tx.Model(&domain.TbArticle{}).First(&article).Error; err != nil {
 		tx.Rollback()
 		return
 	}
@@ -59,6 +70,6 @@ func (a *articleRepository) GetArticleManyRepo(params map[string]string) (articl
 		db = db.Limit(limit).Offset((page - 1) * limit)
 	}
 	// TODO 添加可能的随机
-	db.Order("open_num desc ").Find(&articles)
+	db.Table("tb_article a").Select("a.*, count(c.id) num ").Joins("LEFT JOIN `tb_comment` c ON a.uuid = c.article_uuid ").Group("c.article_uuid").Order("a.open_num desc ").Find(&articles)
 	return
 }

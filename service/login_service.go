@@ -43,7 +43,7 @@ func (l *loginService) Create(user *domain.TbUser) (string, error) {
 		return "", errors.New("账号名已存在")
 	}
 	user.Pass = tools.GeneratePass(user.Pass)
-	user.CreateAt = time.Now()
+	user.CreatedAt = time.Now()
 	user.Creater = user.UserName
 	user.Uuid = tools.GenerateUUID()
 	uuid, err := l.repo.InsertUser(user)

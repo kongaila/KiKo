@@ -28,7 +28,7 @@ func (c *clubService) GetClubDetail(uuid string) (domain.TbClub, error) {
 func (c *clubService) Create(club *domain.TbClub) (ok bool) {
 	// 设置各种属性
 	club.Uuid = tools.GenerateUUID()
-	club.CreateAt = time.Now()
+	club.CreatedAt = time.Now()
 	club.Creater = club.MasterUuid
 	club.ArticleNum = 0
 	club.MemberNum = 1

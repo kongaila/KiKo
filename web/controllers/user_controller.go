@@ -4,27 +4,34 @@ import (
 	"QiqiLike/datamodels/domain"
 	"QiqiLike/datamodels/vo"
 	"QiqiLike/service"
+	"QiqiLike/tools"
 	"github.com/kataras/iris/v12"
+	"strings"
 )
 
 type UserController struct {
-	Service service.UserService
-	Ctx     iris.Context
+	AttrUserService service.UserService
+	AttrLikeService service.LikeService
+	Ctx             iris.Context
 }
 
-// 注册接口
-func PostRegister(ctx iris.Context) {
-	// 定义返回结果模型
-	var result *vo.RespVO
-	user := domain.TbUser{}
-	_ = ctx.ReadJSON(&user)
-	defer func() { ctx.JSON(result) }()
-
-	if ok := user.CheckUserNameAndPass(); !ok {
-		result = vo.Req204RespVO(0, "账号不符合规则", nil)
+// 加入收藏 TODO 添加uuid不存在问题待解决
+func (u *UserController) PostLikeBy(uuid string) (result *vo.RespVO) {
+	if strings.EqualFold(uuid, "") {
+		result = vo.Req204RespVO(0, "数据有误", nil)
 		return
 	}
-
-	result = vo.Req200RespVO(1, "账号创建成功", nil)
-
+	userUuid, _, _ := tools.ParseHeaderToken(u.Ctx)
+	like := domain.TbLike{
+		UserUuid:    userUuid,
+		ArticleUuid: uuid,
+		Title:       u.Ctx.PostValue("title"),
+	}
+	uuid, err := u.AttrLikeService.CreateLike(like)
+	if err != nil {
+		result = vo.Req204RespVO(0, err.Error(), nil)
+		return
+	}
+	result = vo.Req200RespVO(1, "加入成功", uuid)
+	return
 }

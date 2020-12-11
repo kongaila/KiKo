@@ -14,7 +14,7 @@ type TbUser struct {
 	Sex         int32     `json:"sex" gorm:"type:INT(2);"`
 	Nick        string    `json:"nick" gorm:"type:VARCHAR(255);"`
 	Phone       string    `json:"phone" gorm:"type:VARCHAR(30);"`
-	CreateAt    time.Time `json:"createAt" gorm:"type:DATETIME(0);"`
+	CreatedAt   time.Time `json:"CreatedAt" gorm:"type:DATETIME(0);"`
 	Experience  int32     `json:"experience" gorm:"type:INT(11);"`
 	Level       int32     `json:"level" gorm:"type:INT(11);"`
 	Gold        int32     `json:"gold" gorm:"type:INT(11);"`

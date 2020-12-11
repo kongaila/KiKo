@@ -8,5 +8,6 @@ type TbLike struct {
 	Uuid        string    `json:"uuid" gorm:"type:CHAR(32);NOT NULL"`
 	UserUuid    string    `json:"userUuid" gorm:"type:CHAR(32);"`
 	ArticleUuid string    `json:"articleUuid" gorm:"type:CHAR(32);"`
-	CreateAt    time.Time `json:"createAt" gorm:"type:DATETIME(0);"`
+	CreatedAt   time.Time `json:"CreatedAt" gorm:"type:DATETIME(0);"`
+	Title       string    `json:"title" gorm:"type:VARCHAR(100);"`
 }

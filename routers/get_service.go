@@ -38,7 +38,8 @@ func getArticleService() service.ArticleService {
 // 获得喜欢Service
 func getLikeService() service.LikeService {
 	dao := repo.NewLikeRepository(repo.Db)
-	return service.NewLikeService(dao)
+	dao2 := repo.NewArticleRepository(repo.Db)
+	return service.NewLikeService(dao, dao2)
 }
 
 // 获得评论Service

@@ -27,7 +27,7 @@ func (a *articleService) GetDetailSer(uuid string) (domain.TbArticle, error) {
 
 func (a *articleService) Create(article *domain.TbArticle) bool {
 	article.Uuid = tools.GenerateUUID()
-	article.CreateAt = time.Now()
+	article.CreatedAt = time.Now()
 	article.Flag = 1
 	article.IsGood = 0
 

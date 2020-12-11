@@ -25,13 +25,13 @@ func article(app *mvc.Application) {
 
 // 用户模块
 func user(app *mvc.Application) {
-	app.Register()
+	app.Register(getUserService(), getLikeService())
 	app.Handle(new(controllers.UserController))
 }
 
 // 评论模块
 func comment(app *mvc.Application) {
-	app.Register()
+	app.Register(getCommentService())
 	app.Handle(new(controllers.CommentController))
 }
 

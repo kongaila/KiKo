@@ -10,8 +10,8 @@ type TbArticle struct {
 	UserUuid    string    `json:"userUuid" gorm:"type:CHAR(32);"`
 	Title       string    `json:"title" gorm:"type:VARCHAR(255);"`
 	Content     string    `json:"content" gorm:"type:TEXT;"`
-	CreateAt    time.Time `json:"createAt" gorm:"type:DATETIME(0);"`
-	UpdateAt    time.Time `json:"updateAt" gorm:"type:DATETIME(0);"`
+	CreatedAt   time.Time `json:"CreatedAt" gorm:"type:DATETIME(0);"`
+	UpdatedAt   time.Time `json:"UpdatedAt" gorm:"type:DATETIME(0);"`
 	Creater     string    `json:"-" gorm:"type:VARCHAR(255);"`
 	Updater     string    `json:"-" gorm:"type:VARCHAR(255);"`
 	OpenNum     int32     `json:"openNum" gorm:"type:INT(11);"`
@@ -22,4 +22,5 @@ type TbArticle struct {
 	Money       int32     `json:"money" gorm:"type:INT(11);"`
 	Type        string    `json:"type" gorm:"type:VARCHAR(255);"`
 	TypeName    string    `json:"typeName" gorm:"type:VARCHAR(255);"`
+	Num         int32     `json:"num" gorm:"type:INT(11);"`
 }
