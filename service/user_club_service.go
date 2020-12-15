@@ -7,6 +7,7 @@ import (
 
 type UserClubService interface {
 	Create(club *domain.TbUserClub) (ok bool)
+	GetUserClubManySer(strings map[string]string) ([]domain.TbUserClub, int, error)
 }
 
 func NewUserClubService(repo repositorys.UserClubRepository) UserClubService {
@@ -15,6 +16,10 @@ func NewUserClubService(repo repositorys.UserClubRepository) UserClubService {
 
 type userClubService struct {
 	repo repositorys.UserClubRepository
+}
+
+func (c *userClubService) GetUserClubManySer(params map[string]string) ([]domain.TbUserClub, int, error) {
+	return c.repo.GetUserClubManyRepo(params)
 }
 
 func (c *userClubService) Create(club *domain.TbUserClub) (ok bool) {

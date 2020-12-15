@@ -5,6 +5,7 @@ import (
 	"QiqiLike/datamodels/vo"
 	"QiqiLike/service"
 	"QiqiLike/tools"
+	"github.com/jinzhu/gorm"
 	"github.com/kataras/iris/v12"
 	"strings"
 )
@@ -14,6 +15,7 @@ type ArticleController struct {
 	AttrLoginService    service.LoginService
 	AttrClubService     service.ClubService
 	AttrUserClubService service.UserClubService
+	AttrUserService     service.UserService
 	Ctx                 iris.Context
 }
 
@@ -32,13 +34,13 @@ func (a *ArticleController) PostCreate() (result *vo.RespVO) {
 		result = vo.Req204RespVO(1, "添加失败", nil)
 		return
 	}
+	a.AttrUserService.UserUpdateSer(article.UserUuid, "post_num", gorm.Expr("post_num + ?", 1))
 	result = vo.Req200RespVO(1, "添加成功", article.Uuid)
 	return
 }
 
 // 获得帖子列表
 func (a *ArticleController) GetMany() (result *vo.RespVO) {
-
 	return
 }
 

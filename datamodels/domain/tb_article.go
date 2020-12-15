@@ -22,5 +22,5 @@ type TbArticle struct {
 	Money       int32     `json:"money" gorm:"type:INT(11);"`
 	Type        string    `json:"type" gorm:"type:VARCHAR(255);"`
 	TypeName    string    `json:"typeName" gorm:"type:VARCHAR(255);"`
-	Num         int32     `json:"num" gorm:"type:INT(11);"`
+	Num         int32     `json:"num" gorm:"-"` // 回复数量
 }

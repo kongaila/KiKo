@@ -57,19 +57,25 @@ func (a *articleRepository) CreateRepo(article *domain.TbArticle) bool {
 }
 
 func (a *articleRepository) GetArticleManyRepo(params map[string]string) (articles []domain.TbArticle, count int, err error) {
-	uuid := params["uuid"]
+	clubUuid := params["clubUuid"]
 	db := a.source
-	if !strings.EqualFold(uuid, "") {
-		db = db.Where("club_uuid = ? ", uuid)
+	if !strings.EqualFold(clubUuid, "") {
+		db = db.Where("a.club_uuid = ? ", clubUuid)
 	}
+	userUuid := params["userUuid"]
+	_, ok := params["flag"]
+	if !strings.EqualFold(userUuid, "") && ok {
+		db = db.Where("a.user_uuid = ? ", userUuid)
+	}
+
 	// 获取总条数
-	db.Table("tb_article").Count(&count)
+	db.Table("tb_article a").Count(&count)
 	page, _ := strconv.Atoi(params["page"])
 	limit, _ := strconv.Atoi(params["limit"])
 	if page != 0 && limit != 0 {
 		db = db.Limit(limit).Offset((page - 1) * limit)
 	}
 	// TODO 添加可能的随机
-	db.Table("tb_article a").Select("a.*, count(c.id) num ").Joins("LEFT JOIN `tb_comment` c ON a.uuid = c.article_uuid ").Group("c.article_uuid").Order("a.open_num desc ").Find(&articles)
+	db.Table("tb_article a").Select("a.*, count(c.id) num ").Joins("LEFT JOIN `tb_comment` c ON a.uuid = c.article_uuid ").Group("a.uuid").Order("a.open_num desc ").Find(&articles)
 	return
 }

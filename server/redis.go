@@ -7,9 +7,6 @@ import (
 	"time"
 )
 
-// Redis 连接池全局对象
-var Cache *redis.Pool
-
 // redis初始化
 func initRedis() {
 	addr := conf.Viper.GetString("redis.addr")

@@ -39,7 +39,7 @@ func (c *clubRepository) GetClubMany(params map[string]string) (data []domain.Tb
 		return nil, 0, err1
 	}
 	// 获取取指page，指定limit的记录
-	c.source.Limit(limit).Offset((page - 1) * limit).Order("create_at desc").Find(&data)
+	c.source.Limit(limit).Offset((page - 1) * limit).Order("created_at desc").Find(&data)
 	// 获取总条数
 	c.source.Model(&domain.TbClub{}).Count(&count)
 	return data, count, nil

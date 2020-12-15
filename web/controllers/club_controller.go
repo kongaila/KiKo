@@ -39,14 +39,12 @@ func (c *ClubController) PostCreate() (result *vo.RespVO) {
 		UserUuid:  club.MasterUuid,
 		Identity:  1, // 吧主
 		CreatedAt: time.Now(),
+		ClubName:  club.Name,
 	}
 	c.AttrUserClubService.Create(&userClub)
 	result = vo.Req200RespVO(1, "添加成功", club.Uuid)
 	return
 }
-
-// 你这坏孩子 不要不说话 没有眼泪要擦 就别揉眼了
-// 你这坏孩子 没人怪你啊 爱本是自由的 我该承受这 变化
 
 // 获得贴吧列表
 func (c *ClubController) GetMany() (result *vo.RespVO) {
@@ -73,7 +71,7 @@ func (c *ClubController) GetBy(uuid string) (result *vo.RespVO) {
 	return
 }
 
-// 获得一个贴吧的全部帖子(分页)
+// 获得一个贴吧的全部帖子(分页) 传uuid则查询该贴吧的帖子， 否则查询全部帖子
 func (c *ClubController) GetArticleMany() (result *vo.RespVO) {
 	params := c.Ctx.URLParams()
 	articles, count, err := c.AttrArticleService.GetArticleManySer(params)

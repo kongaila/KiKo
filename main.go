@@ -14,6 +14,7 @@ import (
 
 func main() {
 	app := iris.New()
+	app.Logger().SetLevel("debug")
 	// 配置中间件
 	middleware.RegisterMiddleware(app)
 	// 配置路由

@@ -25,7 +25,7 @@ func article(app *mvc.Application) {
 
 // 用户模块
 func user(app *mvc.Application) {
-	app.Register(getUserService(), getLikeService())
+	app.Register(getUserService(), getLikeService(), getArticleService(), getClubService(), getSearchService(), getCommentService(), getUserClubService())
 	app.Handle(new(controllers.UserController))
 }
 

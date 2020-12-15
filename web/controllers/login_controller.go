@@ -6,6 +6,7 @@ import (
 	"QiqiLike/service"
 	"QiqiLike/tools"
 	"QiqiLike/tools/redis"
+	"fmt"
 	"github.com/kataras/iris/v12"
 )
 
@@ -19,6 +20,8 @@ type LoginController struct {
 func (l *LoginController) PostLogin() (result *vo.RespVO) {
 	user := domain.TbUser{}
 	if err := l.Ctx.ReadJSON(&user); err != nil {
+		fmt.Println(err)
+		//panic(err)
 		result = vo.Req204RespVO(0, "数据有误", nil)
 		return
 	}

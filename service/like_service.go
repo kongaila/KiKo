@@ -10,6 +10,7 @@ import (
 
 type LikeService interface {
 	CreateLike(like domain.TbLike) (string, error)
+	GetLikeManySer(strings map[string]string) ([]domain.TbLike, int, error)
 }
 
 func NewLikeService(repo repositorys.LikeRepository, ArticleRepo repositorys.ArticleRepository) LikeService {
@@ -22,6 +23,10 @@ func NewLikeService(repo repositorys.LikeRepository, ArticleRepo repositorys.Art
 type likeService struct {
 	repo        repositorys.LikeRepository
 	ArticleRepo repositorys.ArticleRepository
+}
+
+func (l *likeService) GetLikeManySer(params map[string]string) ([]domain.TbLike, int, error) {
+	return l.repo.GetLikeManyRepo(params)
 }
 
 func (l *likeService) CreateLike(like domain.TbLike) (string, error) {

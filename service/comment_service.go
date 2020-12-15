@@ -10,6 +10,8 @@ import (
 type CommentService interface {
 	CreateSer(domain.TbComment) (string, bool)
 	LikeSer(string) bool
+	GetCommentManySer(strings map[string]string) ([]domain.TbComment, int)
+	GetSonCommentSer(s string) []domain.TbComment
 }
 
 func NewCommentService(repo repositorys.CommentRepository) CommentService {
@@ -18,6 +20,14 @@ func NewCommentService(repo repositorys.CommentRepository) CommentService {
 
 type commentService struct {
 	repo repositorys.CommentRepository
+}
+
+func (c *commentService) GetSonCommentSer(uuid string) []domain.TbComment {
+	return c.repo.GetSonCommentRepo(uuid)
+}
+
+func (c *commentService) GetCommentManySer(params map[string]string) ([]domain.TbComment, int) {
+	return c.repo.GetCommentManyRepo(params)
 }
 
 func (c *commentService) LikeSer(uuid string) bool {

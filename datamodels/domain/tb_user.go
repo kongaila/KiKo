@@ -10,7 +10,7 @@ type TbUser struct {
 	Uuid        string    `json:"uuid" gorm:"type:CHAR(32);NOT NULL"`
 	PUuid       string    `json:"pUuid" gorm:"type:CHAR(32);"`
 	UserName    string    `json:"userName" gorm:"type:VARCHAR(50);"`
-	Pass        string    `json:"pass" gorm:"type:VARCHAR(255);"`
+	Pass        string    `json:"-" gorm:"type:VARCHAR(255);"`
 	Sex         int32     `json:"sex" gorm:"type:INT(2);"`
 	Nick        string    `json:"nick" gorm:"type:VARCHAR(255);"`
 	Phone       string    `json:"phone" gorm:"type:VARCHAR(30);"`
@@ -30,6 +30,7 @@ type TbUser struct {
 	Creater     string    `json:"creater" gorm:"type:VARCHAR(50);"`
 	Age         int32     `json:"age" gorm:"type:INT(11);"`
 	PostNum     int32     `json:"postNum" gorm:"type:INT(11);"`
+	CommentNum  int32     `json:"commentNum" gorm:"type:INT(11);"`
 }
 
 // 校验用户名和密码

@@ -10,4 +10,5 @@ type TbUserClub struct {
 	UserUuid  string    `json:"userUuid" gorm:"type:CHAR(32);"`
 	Identity  int32     `json:"identity" gorm:"type:INT(11);"`
 	CreatedAt time.Time `json:"CreatedAt" gorm:"type:DATETIME(0);"`
+	ClubName  string    `json:"clubName" gorm:"type:VARCHAR(100);"`
 }
