@@ -55,3 +55,10 @@ func SetFoundEx(key string, ex int64) error {
 	_, err := r.Do("EXPIRE", key, ex)
 	return err
 }
+
+// 加一
+func IncrBy(key string) (int, error) {
+	r := Cache.Get()
+	defer r.Close()
+	return redis.Int(r.Do("incr", key))
+}

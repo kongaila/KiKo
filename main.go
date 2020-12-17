@@ -5,6 +5,7 @@ import (
 	cs "QiqiLike/constants"
 	"QiqiLike/routers"
 	"QiqiLike/web/middleware"
+	"QiqiLike/web/quartz"
 	"github.com/kataras/iris/v12"
 	"log"
 	"os"
@@ -19,6 +20,8 @@ func main() {
 	middleware.RegisterMiddleware(app)
 	// 配置路由
 	routers.Router(app)
+	// 配置定时任务
+	quartz.Config()
 	go func() {
 		log.Printf(cs.INFO+"项目启动到端口%s\n", conf.Viper.GetString("server.address"))
 		if err := app.Run(iris.Addr(conf.Viper.GetString("server.address"))); err != nil {

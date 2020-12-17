@@ -19,6 +19,7 @@ func Router(app *iris.Application) {
 		mvc.Configure(api.Party("/user"), user)
 		mvc.Configure(api.Party("/like"), like)
 		mvc.Configure(api.Party("/comment"), comment)
+		mvc.Configure(api.Party("/search"), search)
 		mvc.Configure(api.Party("/top"), top)
 		mvc.Configure(api.Party("/bulletin"), bulletin)
 

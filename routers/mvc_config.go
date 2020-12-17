@@ -43,13 +43,13 @@ func like(app *mvc.Application) {
 
 // 搜索模块
 func search(app *mvc.Application) {
-	app.Register()
+	app.Register(getUserService(), getArticleService(), getClubService())
 	app.Handle(new(controllers.SearchController))
 }
 
 // 热榜模块
 func top(app *mvc.Application) {
-	app.Register()
+	app.Register(getTopService())
 	app.Handle(new(controllers.TopController))
 }
 
@@ -61,6 +61,6 @@ func admin(app *mvc.Application) {
 
 // 公告栏模块
 func bulletin(app *mvc.Application) {
-	app.Register()
+	app.Register(getBulletinService())
 	app.Handle(new(controllers.BulletinController))
 }

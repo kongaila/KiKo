@@ -1,10 +1,12 @@
 package service
 
 import (
+	"QiqiLike/datamodels/domain"
 	"QiqiLike/repositorys"
 )
 
 type BulletinService interface {
+	GetBulletinSer() domain.TbBulletin
 }
 
 func NewBulletinService(repo repositorys.BulletinRepository) BulletinService {
@@ -12,5 +14,9 @@ func NewBulletinService(repo repositorys.BulletinRepository) BulletinService {
 }
 
 type bulletinService struct {
-	repo repositorys.AdminRepository
+	repo repositorys.BulletinRepository
+}
+
+func (b *bulletinService) GetBulletinSer() domain.TbBulletin {
+	return b.repo.GetBulletinRepo()
 }

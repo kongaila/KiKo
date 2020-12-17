@@ -57,7 +57,7 @@ func getSearchService() service.SearchService {
 // 获得热榜Service
 func getTopService() service.TopService {
 	dao := repo.NewTopRepository(repo.Db)
-	return service.TopService(dao)
+	return service.NewTopService(dao)
 }
 
 // 获得管理员Service

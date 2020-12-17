@@ -9,7 +9,7 @@ import (
 
 type ClubRepository interface {
 	Create(club *domain.TbClub) bool
-	GetClubMany(params map[string]string) ([]domain.TbClub, int, error)
+	GetClubManyRepo(params map[string]string) ([]domain.TbClub, int, error)
 	GetClubDetail(s string) (domain.TbClub, error)
 }
 
@@ -32,16 +32,20 @@ func (c *clubRepository) GetClubDetail(uuid string) (domain.TbClub, error) {
 
 }
 
-func (c *clubRepository) GetClubMany(params map[string]string) (data []domain.TbClub, count int, err error) {
+func (c *clubRepository) GetClubManyRepo(params map[string]string) (data []domain.TbClub, count int, err error) {
 	page, err1 := strconv.Atoi(params["page"])
 	limit, err2 := strconv.Atoi(params["limit"])
 	if err1 != nil || err2 != nil {
 		return nil, 0, err1
 	}
+	db := c.source
+	if query, ok := params["query"]; ok {
+		db = db.Where("name like ?", "%"+query+"%")
+	}
 	// 获取取指page，指定limit的记录
-	c.source.Limit(limit).Offset((page - 1) * limit).Order("created_at desc").Find(&data)
+	db.Limit(limit).Offset((page - 1) * limit).Order("created_at desc").Find(&data)
 	// 获取总条数
-	c.source.Model(&domain.TbClub{}).Count(&count)
+	db.Model(&domain.TbClub{}).Count(&count)
 	return data, count, nil
 }
 

@@ -8,7 +8,7 @@ import (
 )
 
 type ClubService interface {
-	GetClubMany(params map[string]string) (data []domain.TbClub, count int, err error)
+	GetClubManySer(params map[string]string) (data []domain.TbClub, count int, err error)
 	Create(club *domain.TbClub) (ok bool)
 	GetClubDetail(s string) (domain.TbClub, error)
 }
@@ -38,6 +38,6 @@ func (c *clubService) Create(club *domain.TbClub) (ok bool) {
 	return
 }
 
-func (c *clubService) GetClubMany(params map[string]string) (data []domain.TbClub, count int, err error) {
-	return c.repo.GetClubMany(params)
+func (c *clubService) GetClubManySer(params map[string]string) (data []domain.TbClub, count int, err error) {
+	return c.repo.GetClubManyRepo(params)
 }

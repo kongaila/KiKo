@@ -1,11 +1,13 @@
 package repositorys
 
 import (
+	"QiqiLike/datamodels/domain"
 	"github.com/jinzhu/gorm"
 	"sync"
 )
 
 type TopRepository interface {
+	GetHistoryTopRepo(i int) []domain.TbTop
 }
 
 func NewTopRepository(source *gorm.DB) TopRepository {
@@ -15,4 +17,9 @@ func NewTopRepository(source *gorm.DB) TopRepository {
 type topRepository struct {
 	source *gorm.DB
 	mux    sync.RWMutex
+}
+
+func (t *topRepository) GetHistoryTopRepo(i int) (data []domain.TbTop) {
+	t.source.Table("tb_top").Where("num = ?", i).Limit(10).Find(&data)
+	return
 }

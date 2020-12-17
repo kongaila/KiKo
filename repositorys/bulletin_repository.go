@@ -1,11 +1,13 @@
 package repositorys
 
 import (
+	"QiqiLike/datamodels/domain"
 	"github.com/jinzhu/gorm"
 	"sync"
 )
 
 type BulletinRepository interface {
+	GetBulletinRepo() domain.TbBulletin
 }
 
 func NewBulletinRepository(source *gorm.DB) BulletinRepository {
@@ -15,4 +17,9 @@ func NewBulletinRepository(source *gorm.DB) BulletinRepository {
 type bulletinRepository struct {
 	source *gorm.DB
 	mux    sync.RWMutex
+}
+
+func (b *bulletinRepository) GetBulletinRepo() (data domain.TbBulletin) {
+	b.source.Model(&domain.TbBulletin{}).Last(&data)
+	return
 }

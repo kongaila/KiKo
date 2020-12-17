@@ -49,7 +49,7 @@ func (c *ClubController) PostCreate() (result *vo.RespVO) {
 // 获得贴吧列表
 func (c *ClubController) GetMany() (result *vo.RespVO) {
 	params := c.Ctx.URLParams()
-	data, count, err := c.AttrClubService.GetClubMany(params)
+	data, count, err := c.AttrClubService.GetClubManySer(params)
 	if err != nil {
 		result = vo.Req500RespVO(0, "查询失败", nil)
 		return

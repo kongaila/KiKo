@@ -33,11 +33,17 @@ func (u *userRepository) GetUserDetailRepo(uuid string) (user domain.TbUser) {
 }
 
 func (u *userRepository) GetUserManyRepo(params map[string]string) (users []domain.TbUser, count int, err error) {
-	uuid := params["uuid"]
 	db := u.source
+	if clubUuid, ok := params["clubUuid"]; ok {
+		db = db.Where("tuc.club_uuid = ?", clubUuid)
+	}
+	if query, ok := params["query"]; ok {
+		db = db.Where("tu.nick like ?", "%"+query+"%")
+	}
 	page, _ := strconv.Atoi(params["page"])
 	limit, _ := strconv.Atoi(params["limit"])
-	db = db.Table("tb_club tc").Select("tu.* ").Joins("LEFT JOIN tb_user_club tuc ON tuc.club_uuid = tc.uuid").Joins("LEFT JOIN tb_user tu ON tuc.user_uuid = tu.uuid").Where("tc.uuid  = ? ", uuid).Order("tuc.created_at desc ")
+
+	db = db.Table("tb_user tu").Select("tu.* ").Joins("LEFT JOIN tb_user_club tuc ON tuc.user_uuid = tu.uuid").Order("tuc.created_at desc ")
 	db.Count(&count)
 	if page != 0 && limit != 0 {
 		db = db.Limit(limit).Offset((page - 1) * limit)

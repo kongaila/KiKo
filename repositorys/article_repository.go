@@ -67,7 +67,9 @@ func (a *articleRepository) GetArticleManyRepo(params map[string]string) (articl
 	if !strings.EqualFold(userUuid, "") && ok {
 		db = db.Where("a.user_uuid = ? ", userUuid)
 	}
-
+	if query, ok := params["query"]; ok {
+		db = db.Where("a.title like ?", "%"+query+"%")
+	}
 	// 获取总条数
 	db.Table("tb_article a").Count(&count)
 	page, _ := strconv.Atoi(params["page"])
