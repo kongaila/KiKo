@@ -10,7 +10,7 @@ type TbTop struct {
 	Num          int32     `json:"num" gorm:"type:INT(11);"`
 	ArticleUuid  string    `json:"articleUuid" gorm:"type:CHAR(32);"`
 	ArticleTitle string    `json:"articleTitle" gorm:"type:VARCHAR(100);"`
-	Weight       int64     `json:"weight" gorm:"-"` // 权重
+	Weight       int64     `json:"weight" gorm:"type:INT(11);"` // 权重
 }
 
 // 设定排序规则。 用于热榜

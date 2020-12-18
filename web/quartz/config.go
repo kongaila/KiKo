@@ -5,14 +5,14 @@ import (
 )
 
 const (
-	spec5min = "0 0/5 * * * ?"
-	spec10s  = "* * */12 * * ?"
+	spec30min = "0 0/30 * * * ?"
+	FM12      = "0 0 12 * * ?"
 )
 
 // 定时任务配置
 func Config() {
 	c := cron.New()
-	_ = c.AddFunc(spec5min, top)
-	_ = c.AddFunc(spec10s, age)
+	_ = c.AddFunc(spec30min, top)
+	_ = c.AddFunc(FM12, age)
 	go c.Start()
 }
