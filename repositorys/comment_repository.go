@@ -43,7 +43,7 @@ func (c *commentRepository) GetCommentManyRepo(params map[string]string) (commen
 	if _, ok := params["type"]; ok {
 		db = db.Where("c.type = ? ", 1)
 	}
-
+	db = db.Where("c.status != ? ", 2)
 	page, e1 := strconv.Atoi(params["page"])
 	limit, e2 := strconv.Atoi(params["limit"])
 	if e1 != nil || e2 != nil {

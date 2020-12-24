@@ -58,3 +58,18 @@ func (a *ArticleController) GetBy(uuid string) (result *vo.RespVO) {
 	result = vo.Req200RespVO(1, "查询成功", article)
 	return
 }
+
+// 举报 TODO
+func (a *ArticleController) GetReportBy(uuid string) (result *vo.RespVO) {
+	if strings.EqualFold(uuid, "") {
+		result = vo.Req204RespVO(1, "数据有误", nil)
+		return
+	}
+	article, err := a.AttrArticleService.GetDetailSer(uuid)
+	if err != nil {
+		result = vo.Req500RespVO(1, "服务器错误", nil)
+		return
+	}
+	result = vo.Req200RespVO(1, "查询成功", article)
+	return
+}

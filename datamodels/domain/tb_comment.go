@@ -13,9 +13,10 @@ type TbComment struct {
 	ArticleUuid  string      `json:"articleUuid" gorm:"type:CHAR(32);"`
 	Content      string      `json:"content" gorm:"type:TEXT;"`
 	CreatedAt    time.Time   `json:"CreatedAt" gorm:"type:DATETIME(0);"`
-	State        int32       `json:"state" gorm:"type:INT(2);"`
+	Status       int32       `json:"status" gorm:"type:INT(2);"`
 	Like         int32       `json:"like" gorm:"type:INT(11);"`
 	ArticleTitle string      `json:"articleTitle" gorm:"type:VARCHAR(100);"`
 	User         TbUser      `json:"user" gorm:"embedded;"`
 	SonComment   []TbComment `json:"sonComment"`
+	ReportMsg    string      `json:"state" gorm:"type:TEXT;"` // 举报信息
 }

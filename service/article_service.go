@@ -30,7 +30,7 @@ func (a *articleService) Create(article *domain.TbArticle) bool {
 	article.CreatedAt = time.Now()
 	article.Flag = 1
 	article.IsGood = 0
-
+	article.Status = 0
 	return a.repo.CreateRepo(article)
 }
 

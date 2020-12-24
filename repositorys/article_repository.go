@@ -70,6 +70,8 @@ func (a *articleRepository) GetArticleManyRepo(params map[string]string) (articl
 	if query, ok := params["query"]; ok {
 		db = db.Where("a.title like ?", "%"+query+"%")
 	}
+	// 查询没有举报成功的帖子
+	db = db.Where("a.status != ?", 2)
 	// 获取总条数
 	db.Table("tb_article a").Count(&count)
 	page, _ := strconv.Atoi(params["page"])

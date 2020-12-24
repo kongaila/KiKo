@@ -50,7 +50,7 @@ func (c *CommentController) PostLikeBy(uuid string) (result *vo.RespVO) {
 	return
 }
 
-// 查看帖子中的所有评论(只有一级)
+// 查看帖子中的所有评论
 func (c *CommentController) GetMany() (result *vo.RespVO) {
 	params := c.Ctx.URLParams()
 	params["type"] = "true"
@@ -62,3 +62,5 @@ func (c *CommentController) GetMany() (result *vo.RespVO) {
 	result = vo.Req200RespVO(count, "查询成功", comments)
 	return
 }
+
+// 举报
