@@ -94,3 +94,5 @@ func (c *ClubController) GetUserMany() (result *vo.RespVO) {
 	result = vo.Req200RespVO(count, "查询成功", users)
 	return
 }
+
+// 加入贴吧

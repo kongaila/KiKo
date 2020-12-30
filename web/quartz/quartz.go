@@ -74,7 +74,7 @@ func age() {
 	for _, user := range users {
 		days := carbon.Parse(user.CreatedAt.Format("2006-01-02 15:04:05")).DiffInDays(carbon.Parse(time.Now().Format("2006-01-02 15:04:05")))
 		age := days / 365
-		db.Model(&domain.TbUser{}).Where("uuid = ?", user.Uuid).Update("age = ?", age)
+		db.Model(&domain.TbUser{}).Where("uuid = ?", user.Uuid).Update("age", age)
 	}
 	log.Printf(cs.INFO+"吧龄数据统计完成！当前时间为：%s, 修改条数为：%d\n", time.Now().Format("2006-01-02 15:04:05"), len(users))
 }
