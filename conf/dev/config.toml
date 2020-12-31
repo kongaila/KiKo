@@ -16,7 +16,7 @@ title = "Qiqilike"
 [database]
   driver = "mysql"
 [mysql]
-  addr = "192.168.83.203"
+  addr = "192.168.83.246"
   port = 5664
   name = "tieba"
   params = "parseTime=true&loc=Local"
