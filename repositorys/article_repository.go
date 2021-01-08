@@ -1,6 +1,7 @@
 package repositorys
 
 import (
+	cs "QiqiLike/constants"
 	"QiqiLike/datamodels/domain"
 	"github.com/jinzhu/gorm"
 	"strconv"
@@ -14,6 +15,7 @@ type ArticleRepository interface {
 	CreateRepo(article *domain.TbArticle) bool
 	SelectArticleDetailRepo(uuid string) (domain.TbArticle, error)
 	CheckArticle(s string) bool
+	ReportMsgRepo(article domain.TbArticle) bool
 }
 
 func NewArticleRepository(source *gorm.DB) ArticleRepository {
@@ -23,6 +25,13 @@ func NewArticleRepository(source *gorm.DB) ArticleRepository {
 type articleRepository struct {
 	source *gorm.DB
 	mux    sync.RWMutex
+}
+
+func (a *articleRepository) ReportMsgRepo(article domain.TbArticle) (ok bool) {
+	if err := a.source.Model(&domain.TbArticle{}).Where("uuid = ?", article.Uuid).Update("status", 1).Update("report_msg", gorm.Expr("concat(report_msg,?)", cs.ReportSplit+article.ReportMsg)).Error; err != nil {
+		return false
+	}
+	return true
 }
 
 func (a *articleRepository) CheckArticle(uuid string) bool {

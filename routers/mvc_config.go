@@ -64,3 +64,9 @@ func bulletin(app *mvc.Application) {
 	app.Register(getBulletinService())
 	app.Handle(new(controllers.BulletinController))
 }
+
+// 字典模块
+func dict(app *mvc.Application) {
+	app.Register(getDictService())
+	app.Handle(new(controllers.DictController))
+}

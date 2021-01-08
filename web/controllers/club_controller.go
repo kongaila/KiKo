@@ -96,3 +96,33 @@ func (c *ClubController) GetUserMany() (result *vo.RespVO) {
 }
 
 // 加入贴吧
+func (c *ClubController) PostAddBy(clubUuid string) (result *vo.RespVO) {
+	userUuid, _, _ := tools.ParseHeaderToken(c.Ctx)
+	userClub, _ := c.AttrClubService.GetClubDetail(clubUuid)
+	userClubNew := domain.TbUserClub{
+		Uuid:      tools.GenerateUUID(),
+		ClubUuid:  clubUuid,
+		UserUuid:  userUuid,
+		Identity:  0, // 成员
+		CreatedAt: time.Now(),
+		ClubName:  userClub.Name,
+	}
+
+	if ok := c.AttrUserClubService.Create(&userClubNew); !ok {
+		result = vo.Req500RespVO(0, "加入失败", nil)
+		return
+	}
+	result = vo.Req200RespVO(0, "加入成功", nil)
+	return
+}
+
+// 退出贴吧
+func (c *ClubController) PostExitBy(clubUuid string) (result *vo.RespVO) {
+	userUuid, _, _ := tools.ParseHeaderToken(c.Ctx)
+	if err := c.AttrUserClubService.DeleteByUserAndClubUuid(userUuid, clubUuid); err != nil {
+		result = vo.Req500RespVO(0, "退出失败", nil)
+		return
+	}
+	result = vo.Req200RespVO(0, "退出成功", nil)
+	return
+}

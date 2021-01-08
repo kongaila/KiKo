@@ -22,6 +22,7 @@ func Router(app *iris.Application) {
 		mvc.Configure(api.Party("/search"), search)
 		mvc.Configure(api.Party("/top"), top)
 		mvc.Configure(api.Party("/bulletin"), bulletin)
+		mvc.Configure(api.Party("/dict"), dict)
 
 		// 后台
 		api = api.Party("/admin")

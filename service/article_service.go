@@ -11,6 +11,7 @@ type ArticleService interface {
 	GetArticleManySer(map[string]string) ([]domain.TbArticle, int, error)
 	Create(article *domain.TbArticle) bool
 	GetDetailSer(uuid string) (domain.TbArticle, error)
+	ReportMsgSer(article domain.TbArticle) bool
 }
 
 func NewArticleService(repo repositorys.ArticleRepository) ArticleService {
@@ -19,6 +20,10 @@ func NewArticleService(repo repositorys.ArticleRepository) ArticleService {
 
 type articleService struct {
 	repo repositorys.ArticleRepository
+}
+
+func (a *articleService) ReportMsgSer(article domain.TbArticle) bool {
+	return a.repo.ReportMsgRepo(article)
 }
 
 func (a *articleService) GetDetailSer(uuid string) (domain.TbArticle, error) {

@@ -71,3 +71,9 @@ func getBulletinService() service.BulletinService {
 	dao := repo.NewBulletinRepository(repo.Db)
 	return service.NewBulletinService(dao)
 }
+
+// 获得字典Service
+func getDictService() service.DictService {
+	dao := repo.NewDictRepository(repo.Db)
+	return service.NewDictService(dao)
+}

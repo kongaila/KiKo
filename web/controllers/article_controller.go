@@ -59,14 +59,19 @@ func (a *ArticleController) GetBy(uuid string) (result *vo.RespVO) {
 	return
 }
 
-// 举报 TODO
-func (a *ArticleController) GetReportBy(uuid string) (result *vo.RespVO) {
+// 举报文章 TODO
+func (a *ArticleController) GetReportBy() (result *vo.RespVO) {
+	uuid := a.Ctx.PostValue("uuid")
+	reportMsg := a.Ctx.PostValue("reportMsg")
 	if strings.EqualFold(uuid, "") {
 		result = vo.Req204RespVO(1, "数据有误", nil)
 		return
 	}
-	article, err := a.AttrArticleService.GetDetailSer(uuid)
-	if err != nil {
+	article := domain.TbArticle{
+		Uuid:      uuid,
+		ReportMsg: reportMsg,
+	}
+	if ok := a.AttrArticleService.ReportMsgSer(article); !ok {
 		result = vo.Req500RespVO(1, "服务器错误", nil)
 		return
 	}
