@@ -54,7 +54,7 @@ func top() {
 	// 排序
 	sort.Sort(topSlice)
 	// 取前十条
-	if len(topSlice) > 10 {
+	if len(topSlice) >= 10 {
 		topSlice = topSlice[:10]
 	}
 	for _, v := range topSlice {
