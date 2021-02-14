@@ -28,7 +28,7 @@ type articleRepository struct {
 }
 
 func (a *articleRepository) ReportMsgRepo(article domain.TbArticle) (ok bool) {
-	if err := a.source.Model(&domain.TbArticle{}).Where("uuid = ?", article.Uuid).Update("status", 1).Update("report_msg", gorm.Expr("concat(report_msg,?)", cs.ReportSplit+article.ReportMsg)).Error; err != nil {
+	if err := a.source.Model(&domain.TbArticle{}).Where("uuid = ?", article.Uuid).Update("status", 1).Update("report_msg", gorm.Expr("concat(report_msg,?)", cs.ReportSplit + article.ReportMsg)).Error; err != nil {
 		return false
 	}
 	return true
