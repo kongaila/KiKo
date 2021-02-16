@@ -16,12 +16,12 @@ title = "Qiqilike"
 [database]
   driver = "mysql"
 [mysql]
-  addr = "192.168.83.246"
+  addr = "127.0.0.1"
   port = 5664
   name = "tieba"
   params = "parseTime=true&loc=Local"
   user = "root"
-  pass = "kong"
+  pass = "kongkong"
 
 # Redis相关
 [redis]
