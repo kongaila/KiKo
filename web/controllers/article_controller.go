@@ -94,6 +94,6 @@ func (a *ArticleController) PostReport() (result *vo.RespVO) {
 		result = vo.Req500RespVO(1, "服务器错误", nil)
 		return
 	}
-	result = vo.Req200RespVO(1, "查询成功", article)
+	result = vo.Req200RespVO(1, "举报成功", uuid)
 	return
 }
