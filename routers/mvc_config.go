@@ -70,3 +70,8 @@ func dict(app *mvc.Application) {
 	app.Register(getDictService())
 	app.Handle(new(controllers.DictController))
 }
+
+// 文件上传
+func upload(app *mvc.Application) {
+	app.Handle(new(controllers.UploadController))
+}

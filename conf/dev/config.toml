@@ -21,7 +21,7 @@ title = "Qiqilike"
   name = "tieba"
   params = "parseTime=true&loc=Local"
   user = "root"
-  pass = "kongkong"
+  pass = "kong"
 
 # Redis相关
 [redis]
@@ -36,4 +36,9 @@ title = "Qiqilike"
 # kafka相关
 [kafka]
   #host = "127.0.0.1"
+
+[upload]
+  image = "D:\\Commonly\\nginx\\nginx-1.16.1\\qiqiUpload\\images"
+  video = "D:\\Commonly\\nginx\\nginx-1.16.1\\qiqiUpload\\videos"
+  file = "D:\\Commonly\\nginx\\nginx-1.16.1\\qiqiUpload\\files"
 

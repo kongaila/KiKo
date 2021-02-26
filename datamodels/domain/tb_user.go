@@ -1,6 +1,8 @@
 package domain
 
 import (
+	"QiqiLike/tools"
+	"strings"
 	"time"
 )
 
@@ -10,7 +12,7 @@ type TbUser struct {
 	Uuid        string    `json:"uuid" gorm:"type:CHAR(32);NOT NULL"`
 	PUuid       string    `json:"pUuid" gorm:"type:CHAR(32);"`
 	UserName    string    `json:"userName" gorm:"type:VARCHAR(50);"`
-	Pass        string    `json:"-" gorm:"type:VARCHAR(255);"`
+	Pass        string    `json:"pass" gorm:"type:VARCHAR(255);"`
 	Sex         int32     `json:"sex" gorm:"type:INT(2);"`
 	Nick        string    `json:"nick" gorm:"type:VARCHAR(255);"`
 	Phone       string    `json:"phone" gorm:"type:VARCHAR(30);"`
@@ -35,7 +37,13 @@ type TbUser struct {
 
 // 校验用户名和密码
 func (user *TbUser) CheckUserNameAndPass() (ok bool) {
-	// TODO 校验用户名和密码
+	if strings.EqualFold(user.UserName, "") || strings.EqualFold(user.Pass, "") {
+		ok = false
+		return
+	}
+	if strings.EqualFold(user.Nick, "") {
+		user.Nick = "用户_" + tools.GenerateUserNick()
+	}
 	ok = true
 	return
 }

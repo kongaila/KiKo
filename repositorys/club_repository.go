@@ -40,7 +40,7 @@ func (c *clubRepository) GetClubManyRepo(params map[string]string) (data []domai
 	}
 	db := c.source
 	if query, ok := params["query"]; ok {
-		db = db.Where("name like ?", "%"+query+"%")
+		db = db.Where("name like ? or type_name like ?", "%"+query+"%", "%"+query+"%")
 	}
 	// 获取取指page，指定limit的记录
 	db.Limit(limit).Offset((page - 1) * limit).Order("created_at desc").Find(&data)

@@ -28,7 +28,7 @@ type articleRepository struct {
 }
 
 func (a *articleRepository) ReportMsgRepo(article domain.TbArticle) (ok bool) {
-	if err := a.source.Model(&domain.TbArticle{}).Where("uuid = ?", article.Uuid).Update("status", 1).Update("report_msg", gorm.Expr("concat(report_msg,?)", cs.ReportSplit + article.ReportMsg)).Error; err != nil {
+	if err := a.source.Model(&domain.TbArticle{}).Where("uuid = ?", article.Uuid).Update("status", 1).Update("report_msg", gorm.Expr("concat(report_msg,?)", cs.ReportSplit+article.ReportMsg)).Error; err != nil {
 		return false
 	}
 	return true
@@ -77,7 +77,7 @@ func (a *articleRepository) GetArticleManyRepo(params map[string]string) (articl
 		db = db.Where("a.user_uuid = ? ", userUuid)
 	}
 	if query, ok := params["query"]; ok {
-		db = db.Where("a.title like ?", "%"+query+"%")
+		db = db.Where("a.title like ? or type_name like ?", "%"+query+"%", "%"+query+"%")
 	}
 	// 查询没有举报成功的帖子
 	db = db.Where("a.status != ?", 2)
@@ -89,6 +89,7 @@ func (a *articleRepository) GetArticleManyRepo(params map[string]string) (articl
 		db = db.Limit(limit).Offset((page - 1) * limit)
 	}
 	// TODO 添加可能的随机
-	db.Table("tb_article a").Select("a.*, count(c.id) num ").Joins("LEFT JOIN `tb_comment` c ON a.uuid = c.article_uuid ").Group("a.uuid").Order("a.open_num desc ").Find(&articles)
+	db.Table("tb_article a").Select("a.*, count(c.id) num, u.nick crater_nick ").Joins("LEFT JOIN `tb_comment` c ON a.uuid = c.article_uuid ").Joins("left join tb_user u on a.user_uuid = u.uuid").Group("a.uuid").Order("rand()").Find(&articles)
+
 	return
 }

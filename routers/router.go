@@ -23,12 +23,12 @@ func Router(app *iris.Application) {
 		mvc.Configure(api.Party("/top"), top)
 		mvc.Configure(api.Party("/bulletin"), bulletin)
 		mvc.Configure(api.Party("/dict"), dict)
+		mvc.Configure(api.Party("/upload"), upload)
 
 		// 后台
 		api = api.Party("/admin")
 		{
 			mvc.Configure(api.Party("/admin"), admin)
-
 		}
 	}
 

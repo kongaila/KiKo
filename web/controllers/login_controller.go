@@ -8,6 +8,7 @@ import (
 	"QiqiLike/tools/redis"
 	"fmt"
 	"github.com/kataras/iris/v12"
+	"strings"
 )
 
 type LoginController struct {
@@ -30,6 +31,11 @@ func (l *LoginController) PostLogin() (result *vo.RespVO) {
 		result = vo.Req204RespVO(0, "账号或者密码错误", nil)
 		return
 	}
+	// 如果已经登录过， 那么删除原来的token
+	oldToken := tools.GetHeaderToken(l.Ctx)
+	if !strings.EqualFold(oldToken, "") {
+		_ = redis.Del(oldToken)
+	}
 	result = vo.Req200RespVO(0, "登录成功", token)
 	return
 }
@@ -41,7 +47,7 @@ func (l *LoginController) PostRegister() (result *vo.RespVO) {
 		result = vo.Req204RespVO(0, "数据有误", nil)
 	}
 	if ok := user.CheckUserNameAndPass(); !ok {
-		result = vo.Req204RespVO(0, "账号不符合规则", nil)
+		result = vo.Req204RespVO(0, "账号和密码不能为空", nil)
 		return
 	}
 	uuid, err := l.AttrLoginService.Create(&user)
