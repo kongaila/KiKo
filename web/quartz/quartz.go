@@ -15,9 +15,10 @@ import (
 
 const (
 	// 权重
-	REPLY_NUM  = 5 // 回复数
-	OPEN_NUM   = 3 // 打开数
-	CREATED_AT = 2 // 当天时间 - 创建时间
+	REPLY_NUM  = 5  // 回复数
+	OPEN_NUM   = 3  // 打开数
+	CREATED_AT = 2  // 当天时间 - 创建时间
+	FiX_NUM    = 50 // 总值加上固定数
 )
 
 // 定时抓取热榜到redis
@@ -47,7 +48,7 @@ func top() {
 			Num:          int32(topNum),
 			ArticleUuid:  article.Uuid,
 			ArticleTitle: article.Title,
-			Weight:       int64(num) + int64(open) - days,
+			Weight:       int64(num) + int64(open) - days + FiX_NUM,
 		}
 		topSlice = append(topSlice, top)
 	}
