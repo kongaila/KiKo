@@ -99,6 +99,11 @@ func (c *ClubController) GetUserMany() (result *vo.RespVO) {
 func (c *ClubController) PostAddBy(clubUuid string) (result *vo.RespVO) {
 	userUuid, _, _ := tools.ParseHeaderToken(c.Ctx)
 	userClub, _ := c.AttrClubService.GetClubDetail(clubUuid)
+	if ok := c.AttrUserClubService.GetIsJoinClub(userUuid, clubUuid); ok {
+		result = vo.Req204RespVO(0, "您已经加入该贴吧", nil)
+		return
+	}
+
 	userClubNew := domain.TbUserClub{
 		Uuid:      tools.GenerateUUID(),
 		ClubUuid:  clubUuid,
@@ -107,7 +112,6 @@ func (c *ClubController) PostAddBy(clubUuid string) (result *vo.RespVO) {
 		CreatedAt: time.Now(),
 		ClubName:  userClub.Name,
 	}
-
 	if ok := c.AttrUserClubService.Create(&userClubNew); !ok {
 		result = vo.Req500RespVO(0, "加入失败", nil)
 		return

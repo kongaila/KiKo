@@ -19,7 +19,15 @@ type UserController struct {
 	Ctx                 iris.Context
 }
 
-// 加入收藏 TODO 添加uuid不存在问题待解决
+// 查看是否加入了贴吧
+func (u *UserController) PostJoinBy(clubUuid string) (result *vo.RespVO) {
+	userUuid, _, _ := tools.ParseHeaderToken(u.Ctx)
+	ok := u.AttrUserClubService.GetIsJoinClub(userUuid, clubUuid)
+	result = vo.Req200RespVO(0, "查询成功", ok)
+	return
+}
+
+// 加入收藏
 func (u *UserController) PostLikeBy(uuid string) (result *vo.RespVO) {
 	if strings.EqualFold(uuid, "") {
 		result = vo.Req204RespVO(0, "数据有误", nil)

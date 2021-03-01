@@ -3,12 +3,13 @@ package service
 import (
 	"QiqiLike/datamodels/domain"
 	"QiqiLike/repositorys"
+	"github.com/jinzhu/gorm"
 )
 
 type UserService interface {
 	GetUserManySer(map[string]string) ([]domain.TbUser, int, error)
 	GetUserDetailSer(s string) domain.TbUser
-	UserUpdateSer(string, string, ...interface{})
+	UserUpdateSer(string, string, *gorm.SqlExpr)
 }
 
 func NewUserService(repo repositorys.UserRepository) UserService {
@@ -21,7 +22,7 @@ type userService struct {
 	repo repositorys.UserRepository
 }
 
-func (u *userService) UserUpdateSer(uuid, sql string, args ...interface{}) {
+func (u *userService) UserUpdateSer(uuid, sql string, args *gorm.SqlExpr) {
 	u.repo.UserUpdateRepo(uuid, sql, args)
 }
 

@@ -10,7 +10,7 @@ import (
 type UserRepository interface {
 	GetUserManyRepo(map[string]string) ([]domain.TbUser, int, error)
 	GetUserDetailRepo(s string) domain.TbUser
-	UserUpdateRepo(uuid, sql string, args []interface{})
+	UserUpdateRepo(uuid, sql string, args *gorm.SqlExpr)
 }
 
 func NewUserRepository(source *gorm.DB) UserRepository {
@@ -23,8 +23,8 @@ type userRepository struct {
 }
 
 // 修改用户信息
-func (u *userRepository) UserUpdateRepo(uuid, sql string, args []interface{}) {
-	u.source.Where("uuid = ?", uuid).Update(sql, args)
+func (u *userRepository) UserUpdateRepo(uuid, sql string, args *gorm.SqlExpr) {
+	u.source.Table("tb_user").Where("uuid = ?", uuid).Update(sql, args)
 }
 
 func (u *userRepository) GetUserDetailRepo(uuid string) (user domain.TbUser) {

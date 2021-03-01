@@ -28,8 +28,9 @@ func (c *clubRepository) GetClubDetail(uuid string) (domain.TbClub, error) {
 	if db.Error != nil {
 		return club, db.Error
 	}
+	c.source.Table("tb_article").Where("club_uuid = ?", club.Uuid).Count(&club.ArticleNum)
+	c.source.Table("tb_user_club").Where("club_uuid = ?", club.Uuid).Count(&club.MemberNum)
 	return club, nil
-
 }
 
 func (c *clubRepository) GetClubManyRepo(params map[string]string) (data []domain.TbClub, count int, err error) {

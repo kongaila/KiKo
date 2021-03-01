@@ -12,7 +12,7 @@ type TbComment struct {
 	UserUuid     string      `json:"userUuid" gorm:"type:CHAR(32);"`
 	ArticleUuid  string      `json:"articleUuid" gorm:"type:CHAR(32);"`
 	Content      string      `json:"content" gorm:"type:TEXT;"`
-	CreatedAt    time.Time   `json:"CreatedAt" gorm:"type:DATETIME(0);"`
+	CreatedAt    time.Time   `json:"createdAt" gorm:"type:DATETIME(0);"`
 	Status       int32       `json:"status" gorm:"type:INT(2);"`
 	Like         int32       `json:"like" gorm:"type:INT(11);"`
 	ArticleTitle string      `json:"articleTitle" gorm:"type:VARCHAR(100);"`

@@ -31,7 +31,7 @@ func user(app *mvc.Application) {
 
 // 评论模块
 func comment(app *mvc.Application) {
-	app.Register(getCommentService())
+	app.Register(getCommentService(), getUserService())
 	app.Handle(new(controllers.CommentController))
 }
 

@@ -26,7 +26,7 @@ type TbUser struct {
 	Birthday    time.Time `json:"birthday" gorm:"type:DATE;"`
 	Email       string    `json:"email" gorm:"type:VARCHAR(50);"`
 	Address     string    `json:"address" gorm:"type:VARCHAR(255);"`
-	Type        int32     `json:"type" gorm:"type:INT(2);"`
+	Type        int32     `json:"type" gorm:"-"`
 	Modify      string    `json:"modify" gorm:"type:VARCHAR(50);"`
 	ModifyAt    time.Time `json:"modifyAt" gorm:"type:DATETIME(0);"`
 	Creater     string    `json:"creater" gorm:"type:VARCHAR(50);"`

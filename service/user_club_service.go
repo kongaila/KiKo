@@ -10,6 +10,7 @@ type UserClubService interface {
 	GetUserClubManySer(strings map[string]string) ([]domain.TbUserClub, int, error)
 	SelectByUuidSer(uuid string) domain.TbUserClub
 	DeleteByUserAndClubUuid(userUuid string, clubUuid string) error
+	GetIsJoinClub(userUuid string, clubUuid string) bool
 }
 
 func NewUserClubService(repo repositorys.UserClubRepository) UserClubService {
@@ -18,6 +19,14 @@ func NewUserClubService(repo repositorys.UserClubRepository) UserClubService {
 
 type userClubService struct {
 	repo repositorys.UserClubRepository
+}
+
+func (c *userClubService) GetIsJoinClub(userUuid string, clubUuid string) bool {
+	if c.repo.GetIsJoinClubResp(userUuid, clubUuid) > 0 {
+		return true
+	} else {
+		return false
+	}
 }
 
 func (c *userClubService) DeleteByUserAndClubUuid(userUuid string, clubUuid string) error {

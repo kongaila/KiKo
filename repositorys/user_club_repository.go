@@ -13,6 +13,7 @@ type UserClubRepository interface {
 	GetUserClubManyRepo(strings map[string]string) ([]domain.TbUserClub, int, error)
 	SelectByUuidRepo(uuid string) domain.TbUserClub
 	DeleteByUserAndClubUuidRepo(string, string) error
+	GetIsJoinClubResp(userUuid string, clubUuid string) int
 }
 
 func NewUserClubRepository(source *gorm.DB) UserClubRepository {
@@ -22,6 +23,11 @@ func NewUserClubRepository(source *gorm.DB) UserClubRepository {
 type userClubRepository struct {
 	source *gorm.DB
 	mux    sync.RWMutex
+}
+
+func (c *userClubRepository) GetIsJoinClubResp(userUuid string, clubUuid string) (count int) {
+	c.source.Table("tb_user_club").Where("user_uuid = ? and club_uuid = ?", userUuid, clubUuid).Count(&count)
+	return
 }
 
 func (c *userClubRepository) DeleteByUserAndClubUuidRepo(userUuid string, clubUuid string) error {

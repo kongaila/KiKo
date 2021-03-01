@@ -50,7 +50,7 @@ func (a *articleRepository) SelectArticleDetailRepo(uuid string) (article domain
 		tx.Rollback()
 		return
 	}
-	if err = tx.Model(&domain.TbArticle{}).First(&article).Error; err != nil {
+	if err = tx.Model(&domain.TbArticle{}).Where("uuid = ?", uuid).First(&article).Error; err != nil {
 		tx.Rollback()
 		return
 	}

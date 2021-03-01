@@ -25,7 +25,8 @@ type commentRepository struct {
 }
 
 func (c *commentRepository) GetSonCommentRepo(uuid string) (sonCom []domain.TbComment) {
-	c.source.Model(&[]domain.TbComment{}).Where("p_uuid = ? and type = ?", uuid, 2).Find(&sonCom)
+	//c.source.Model(&[]domain.TbComment{}).Where("p_uuid = ? and type = ?", uuid, 2).Find(&sonCom)
+	c.source.Table("tb_comment c").Select("c.*, u.*").Joins("left join tb_user u on c.user_uuid = u.uuid").Where("c.p_uuid = ? and c.type = ?", uuid, 2).Order("c.created_at desc").Find(&sonCom)
 	return
 }
 
@@ -63,7 +64,10 @@ func (c *commentRepository) LikeRepo(uuid string) bool {
 }
 
 func (c *commentRepository) CreateRepo(comment domain.TbComment) bool {
-	if err := c.source.Model(&domain.TbComment{}).Create(&comment).Error; err != nil {
+	//if err := c.source.Table("tb_comment").Select("id","uuid","p_id","p_uuid","type","user_uuid","article_uuid","content","created_at","status","like","article_title","report_msg").Create(&comment).Error; err != nil {
+	//	return false
+	//}
+	if err := c.source.Exec("INSERT INTO `tb_comment` (`uuid`,`p_id`,`p_uuid`,`type`,`user_uuid`,`article_uuid`,`content`,`created_at`,`status`,`article_title`)VALUES(?,?,?,?,?,?,?,?,?,?)", comment.Uuid, comment.PId, comment.PUuid, comment.Type, comment.UserUuid, comment.ArticleUuid, comment.Content, comment.CreatedAt, comment.Status, comment.ArticleTitle).Error; err != nil {
 		return false
 	}
 	return true

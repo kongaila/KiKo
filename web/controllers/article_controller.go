@@ -55,7 +55,11 @@ func (a *ArticleController) GetBy(uuid string) (result *vo.RespVO) {
 		result = vo.Req500RespVO(1, "服务器错误", nil)
 		return
 	}
-	result = vo.Req200RespVO(1, "查询成功", article)
+	master := a.AttrUserService.GetUserDetailSer(article.UserUuid)
+	data := make(map[string]interface{})
+	data["master"] = master
+	data["article"] = article
+	result = vo.Req200RespVO(1, "查询成功", data)
 	return
 }
 
