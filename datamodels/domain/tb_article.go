@@ -4,7 +4,7 @@ import "time"
 
 // 文章模型
 type TbArticle struct {
-	Id          int32     `json:"id" gorm:"type:INT(11);AUTO_INCREMENT;NOT NULL"`
+	Id          int32     `json:"-" gorm:"type:INT(11);AUTO_INCREMENT;NOT NULL"`
 	Uuid        string    `json:"uuid" gorm:"type:CHAR(32);NOT NULL"`
 	ClubUuid    string    `json:"clubUuid" gorm:"type:CHAR(32);"`
 	UserUuid    string    `json:"userUuid" gorm:"type:CHAR(32);"`
