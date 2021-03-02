@@ -12,5 +12,5 @@ type TbDict struct {
 	Level     string    `json:"level" gorm:"type:VARCHAR(10);"`
 	Order     int32     `json:"order" gorm:"type:INT(11);"`
 	Other     string    `json:"other" gorm:"type:VARCHAR(255);"`
-	CreatedAt time.Time `json:"CreatedAt" gorm:"type:DATETIME(0);"`
+	CreatedAt time.Time `json:"createdAt" gorm:"type:DATETIME(0);"`
 }

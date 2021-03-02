@@ -34,12 +34,13 @@ func (c *ClubController) PostCreate() (result *vo.RespVO) {
 		return
 	}
 	userClub := domain.TbUserClub{
-		Uuid:      tools.GenerateUUID(),
-		ClubUuid:  club.Uuid,
-		UserUuid:  club.MasterUuid,
-		Identity:  1, // 吧主
-		CreatedAt: time.Now(),
-		ClubName:  club.Name,
+		Uuid:        tools.GenerateUUID(),
+		ClubUuid:    club.Uuid,
+		UserUuid:    club.MasterUuid,
+		Identity:    1, // 吧主
+		CreatedAt:   time.Now(),
+		ClubName:    club.Name,
+		ClubHeadImg: club.HeadImg,
 	}
 	c.AttrUserClubService.Create(&userClub)
 	result = vo.Req200RespVO(1, "添加成功", club.Uuid)

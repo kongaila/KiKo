@@ -125,3 +125,19 @@ func (u *UserController) GetClub() (result *vo.RespVO) {
 	result = vo.Req200RespVO(count, "查询成功", userClubs)
 	return
 }
+
+// 修改用户信息
+func (u *UserController) PostInfo() (result *vo.RespVO) {
+	var user domain.TbUser
+	if err := u.Ctx.ReadJSON(&user); err != nil {
+		result = vo.Req204RespVO(0, "参数错误", nil)
+		return
+	}
+	user.Uuid, _, _ = tools.ParseHeaderToken(u.Ctx)
+	if ok := u.AttrUserService.UserUpdateInfoSer(user); ok {
+		result = vo.Req204RespVO(0, "修改失败！", nil)
+		return
+	}
+	result = vo.Req200RespVO(1, "修改成功！", nil)
+	return
+}

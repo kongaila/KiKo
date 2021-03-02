@@ -10,6 +10,7 @@ type UserService interface {
 	GetUserManySer(map[string]string) ([]domain.TbUser, int, error)
 	GetUserDetailSer(s string) domain.TbUser
 	UserUpdateSer(string, string, *gorm.SqlExpr)
+	UserUpdateInfoSer(domain.TbUser) bool
 }
 
 func NewUserService(repo repositorys.UserRepository) UserService {
@@ -32,4 +33,8 @@ func (u *userService) GetUserDetailSer(uuid string) domain.TbUser {
 
 func (u *userService) GetUserManySer(params map[string]string) ([]domain.TbUser, int, error) {
 	return u.repo.GetUserManyRepo(params)
+}
+
+func (u *userService) UserUpdateInfoSer(user domain.TbUser) (ok bool) {
+	return u.repo.UserUpdateInfoRepo(user)
 }

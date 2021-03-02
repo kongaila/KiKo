@@ -11,6 +11,7 @@ type UserRepository interface {
 	GetUserManyRepo(map[string]string) ([]domain.TbUser, int, error)
 	GetUserDetailRepo(s string) domain.TbUser
 	UserUpdateRepo(uuid, sql string, args *gorm.SqlExpr)
+	UserUpdateInfoRepo(user domain.TbUser) bool
 }
 
 func NewUserRepository(source *gorm.DB) UserRepository {
@@ -20,6 +21,13 @@ func NewUserRepository(source *gorm.DB) UserRepository {
 type userRepository struct {
 	source *gorm.DB
 	mu     sync.RWMutex
+}
+
+func (u *userRepository) UserUpdateInfoRepo(user domain.TbUser) bool {
+	if err := u.source.Model(&domain.TbUser{}).Select("nick", "head_img", "phone").Where("uuid = ?", user.Uuid).Updates(user); err != nil {
+		return false
+	}
+	return true
 }
 
 // 修改用户信息
