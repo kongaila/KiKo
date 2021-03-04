@@ -1,10 +1,10 @@
 package middleware
 
 import (
-	cs "QiqiLike/constants"
-	"QiqiLike/datamodels/vo"
-	"QiqiLike/tools"
-	"QiqiLike/tools/redis"
+	cs "KiKo/constants"
+	"KiKo/datamodels/vo"
+	"KiKo/tools"
+	"KiKo/tools/redis"
 	"github.com/kataras/iris/v12"
 	"log"
 	"strings"
@@ -12,7 +12,7 @@ import (
 )
 
 // 不受控制的路径
-var uncontrolled = []string{cs.Prefix + "/login", cs.Prefix + "/register"}
+var uncontrolled = []string{cs.Prefix + "/login", cs.Prefix + "/register", cs.Prefix + "/admin/admin/login"}
 
 // 打印日志
 func message(ctx iris.Context) {

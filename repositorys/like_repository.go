@@ -1,7 +1,7 @@
 package repositorys
 
 import (
-	"QiqiLike/datamodels/domain"
+	"KiKo/datamodels/domain"
 	"github.com/jinzhu/gorm"
 	"strconv"
 	"strings"

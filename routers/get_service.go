@@ -1,8 +1,8 @@
 package routers
 
 import (
-	repo "QiqiLike/repositorys"
-	"QiqiLike/service"
+	repo "KiKo/repositorys"
+	"KiKo/service"
 )
 
 // 获得登录Service

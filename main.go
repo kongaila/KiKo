@@ -1,11 +1,11 @@
 package main
 
 import (
-	"QiqiLike/conf"
-	cs "QiqiLike/constants"
-	"QiqiLike/routers"
-	"QiqiLike/web/middleware"
-	"QiqiLike/web/quartz"
+	"KiKo/conf"
+	cs "KiKo/constants"
+	"KiKo/routers"
+	"KiKo/web/middleware"
+	"KiKo/web/quartz"
 	"github.com/kataras/iris/v12"
 	"log"
 	"os"

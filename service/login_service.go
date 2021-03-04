@@ -1,11 +1,11 @@
 package service
 
 import (
-	cs "QiqiLike/constants"
-	"QiqiLike/datamodels/domain"
-	"QiqiLike/repositorys"
-	"QiqiLike/tools"
-	"QiqiLike/tools/redis"
+	cs "KiKo/constants"
+	"KiKo/datamodels/domain"
+	"KiKo/repositorys"
+	"KiKo/tools"
+	"KiKo/tools/redis"
 	"errors"
 	"log"
 	"time"

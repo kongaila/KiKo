@@ -22,8 +22,8 @@ type TbArticle struct {
 	Money       int32     `json:"money" gorm:"type:INT(11);"`
 	Type        string    `json:"type" gorm:"type:VARCHAR(255);"`
 	TypeName    string    `json:"typeName" gorm:"type:VARCHAR(255);"`
-	Num         int32     `json:"num" gorm:"-"`               // 回复数量
-	CraterNick  string    `json:"craterNick" gorm:"-"`        // 创建人昵称
-	Status      int32     `json:"status" gorm:"type:INT(2);"` // 审核状态  是否被举报 0 没有 1被举报（审核中） 2 举报成功 3举报驳回
-	ReportMsg   string    `json:"state" gorm:"type:TEXT;"`    // 举报信息
+	Num         int32     `json:"num" gorm:"-"`                // 回复数量
+	CraterNick  string    `json:"craterNick" gorm:"-"`         // 创建人昵称
+	Status      int32     `json:"status" gorm:"type:INT(2);"`  // 审核状态  是否被举报 0 没有 1被举报（审核中） 2 举报成功 3举报驳回
+	ReportMsg   string    `json:"reportMsg" gorm:"type:TEXT;"` // 举报信息
 }

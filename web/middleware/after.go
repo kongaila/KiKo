@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	cs "QiqiLike/constants"
+	cs "KiKo/constants"
 	"github.com/kataras/iris/v12"
 	"log"
 )

@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"QiqiLike/datamodels/vo"
-	"QiqiLike/service"
+	"KiKo/datamodels/vo"
+	"KiKo/service"
 	"github.com/kataras/iris/v12"
 )
 

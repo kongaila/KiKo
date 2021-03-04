@@ -1,9 +1,9 @@
 package service
 
 import (
-	"QiqiLike/datamodels/domain"
-	"QiqiLike/repositorys"
-	"QiqiLike/tools"
+	"KiKo/datamodels/domain"
+	"KiKo/repositorys"
+	"KiKo/tools"
 	"time"
 )
 
@@ -12,6 +12,7 @@ type ArticleService interface {
 	Create(article *domain.TbArticle) bool
 	GetDetailSer(uuid string) (domain.TbArticle, error)
 	ReportMsgSer(article domain.TbArticle) bool
+	UpdateArticleInfoSer(uuid string, sql string, arg string) bool
 }
 
 func NewArticleService(repo repositorys.ArticleRepository) ArticleService {
@@ -20,6 +21,10 @@ func NewArticleService(repo repositorys.ArticleRepository) ArticleService {
 
 type articleService struct {
 	repo repositorys.ArticleRepository
+}
+
+func (a *articleService) UpdateArticleInfoSer(uuid string, sql string, arg string) bool {
+	return a.repo.UpdateArticleInfoRepo(uuid, sql, arg)
 }
 
 func (a *articleService) ReportMsgSer(article domain.TbArticle) bool {

@@ -1,7 +1,7 @@
 package server
 
 import (
-	"QiqiLike/conf"
+	"KiKo/conf"
 	"fmt"
 	"github.com/garyburd/redigo/redis"
 	"time"

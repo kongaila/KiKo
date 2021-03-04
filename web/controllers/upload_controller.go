@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"QiqiLike/conf"
-	"QiqiLike/datamodels/vo"
-	"QiqiLike/tools"
+	"KiKo/conf"
+	"KiKo/datamodels/vo"
+	"KiKo/tools"
 	"github.com/kataras/iris/v12"
 	"path"
 	"path/filepath"

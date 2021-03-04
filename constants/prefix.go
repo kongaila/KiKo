@@ -1,5 +1,5 @@
 package cs
 
-import "QiqiLike/conf"
+import "KiKo/conf"
 
 var Prefix = conf.Viper.GetString("api.prefix")

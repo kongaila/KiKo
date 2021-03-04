@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	cs "QiqiLike/constants"
+	cs "KiKo/constants"
 	"github.com/dgrijalva/jwt-go"
 	jwtmiddleware "github.com/iris-contrib/middleware/jwt"
 	"github.com/kataras/iris/v12"

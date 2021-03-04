@@ -1,8 +1,8 @@
 package repositorys
 
 import (
-	cs "QiqiLike/constants"
-	"QiqiLike/datamodels/domain"
+	cs "KiKo/constants"
+	"KiKo/datamodels/domain"
 	"github.com/jinzhu/gorm"
 	"strconv"
 	"strings"
@@ -16,6 +16,7 @@ type ArticleRepository interface {
 	SelectArticleDetailRepo(uuid string) (domain.TbArticle, error)
 	CheckArticle(s string) bool
 	ReportMsgRepo(article domain.TbArticle) bool
+	UpdateArticleInfoRepo(s string, s2 string, s3 string) bool
 }
 
 func NewArticleRepository(source *gorm.DB) ArticleRepository {
@@ -25,6 +26,13 @@ func NewArticleRepository(source *gorm.DB) ArticleRepository {
 type articleRepository struct {
 	source *gorm.DB
 	mux    sync.RWMutex
+}
+
+func (a *articleRepository) UpdateArticleInfoRepo(uuid string, sql string, arg string) bool {
+	if err := a.source.Table("tb_article").Where("uuid = ?", uuid).Update(sql, arg).Error; err != nil {
+		return false
+	}
+	return true
 }
 
 func (a *articleRepository) ReportMsgRepo(article domain.TbArticle) (ok bool) {
@@ -79,8 +87,13 @@ func (a *articleRepository) GetArticleManyRepo(params map[string]string) (articl
 	if query, ok := params["query"]; ok {
 		db = db.Where("a.title like ? or type_name like ?", "%"+query+"%", "%"+query+"%")
 	}
-	// 查询没有举报成功的帖子
-	db = db.Where("a.status != ?", 2)
+	// 查询被举报的
+	if _, ok := params["check"]; ok {
+		db = db.Where("a.status = ?", 1)
+	} else {
+		// 查询没有举报成功的帖子
+		db = db.Where("a.status != ?", 2)
+	}
 	// 获取总条数
 	db.Table("tb_article a").Count(&count)
 	page, _ := strconv.Atoi(params["page"])
@@ -88,8 +101,12 @@ func (a *articleRepository) GetArticleManyRepo(params map[string]string) (articl
 	if page != 0 && limit != 0 {
 		db = db.Limit(limit).Offset((page - 1) * limit)
 	}
-	// TODO 添加可能的随机
-	db.Table("tb_article a").Select("a.*, count(c.id) num, u.nick crater_nick ").Joins("LEFT JOIN `tb_comment` c ON a.uuid = c.article_uuid ").Joins("left join tb_user u on a.user_uuid = u.uuid").Group("a.uuid").Order("rand()").Find(&articles)
+	// 添加可能的随机
+	if _, ok := params["paixu"]; ok {
+		db.Table("tb_article a").Select("a.*, count(c.id) num, u.nick crater_nick ").Joins("LEFT JOIN `tb_comment` c ON a.uuid = c.article_uuid ").Joins("left join tb_user u on a.user_uuid = u.uuid").Group("a.uuid").Order("a.created_at desc").Find(&articles)
+	} else {
+		db.Table("tb_article a").Select("a.*, count(c.id) num, u.nick crater_nick ").Joins("LEFT JOIN `tb_comment` c ON a.uuid = c.article_uuid ").Joins("left join tb_user u on a.user_uuid = u.uuid").Group("a.uuid").Order("rand()").Find(&articles)
+	}
 
 	return
 }

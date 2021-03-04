@@ -1,7 +1,7 @@
 package routers
 
 import (
-	"QiqiLike/web/controllers"
+	"KiKo/web/controllers"
 	"github.com/kataras/iris/v12/mvc"
 )
 
@@ -55,7 +55,7 @@ func top(app *mvc.Application) {
 
 // 管理员模块
 func admin(app *mvc.Application) {
-	app.Register()
+	app.Register(getUserService(), getClubService(), getUserClubService(), getArticleService(), getBulletinService(), getCommentService(), getAdminService(), getDictService())
 	app.Handle(new(controllers.AdminController))
 }
 

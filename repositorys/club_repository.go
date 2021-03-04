@@ -1,7 +1,7 @@
 package repositorys
 
 import (
-	"QiqiLike/datamodels/domain"
+	"KiKo/datamodels/domain"
 	"github.com/jinzhu/gorm"
 	"strconv"
 	"sync"
@@ -11,6 +11,7 @@ type ClubRepository interface {
 	Create(club *domain.TbClub) bool
 	GetClubManyRepo(params map[string]string) ([]domain.TbClub, int, error)
 	GetClubDetail(s string) (domain.TbClub, error)
+	UpdateClubInfoSer(s string, s2 string, s3 string) bool
 }
 
 func NewClubRepository(source *gorm.DB) ClubRepository {
@@ -20,6 +21,13 @@ func NewClubRepository(source *gorm.DB) ClubRepository {
 type clubRepository struct {
 	source *gorm.DB
 	mux    sync.RWMutex
+}
+
+func (c *clubRepository) UpdateClubInfoSer(uuid string, sql string, arg string) bool {
+	if err := c.source.Table("tb_club").Where("uuid = ?", uuid).Update(sql, arg).Error; err != nil {
+		return false
+	}
+	return true
 }
 
 func (c *clubRepository) GetClubDetail(uuid string) (domain.TbClub, error) {
@@ -42,6 +50,10 @@ func (c *clubRepository) GetClubManyRepo(params map[string]string) (data []domai
 	db := c.source
 	if query, ok := params["query"]; ok {
 		db = db.Where("name like ? or type_name like ?", "%"+query+"%", "%"+query+"%")
+	}
+	// 只查询待审核的
+	if _, ok := params["check"]; ok {
+		db = db.Where("status = ?", 0)
 	}
 	// 获取取指page，指定limit的记录
 	db.Limit(limit).Offset((page - 1) * limit).Order("created_at desc").Find(&data)

@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"QiqiLike/service"
+	"KiKo/service"
 	"github.com/kataras/iris/v12"
 )
 

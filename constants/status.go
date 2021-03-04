@@ -10,6 +10,8 @@ const (
 	StatusBadGateway          = 502
 	StatusGatewayTimeout      = 504
 	NotToken                  = 666
+	StatusAdminFailed         = 1
+	StatusAdminSuccess        = 0
 )
 
 var StatusText = map[int]string{
@@ -21,4 +23,6 @@ var StatusText = map[int]string{
 	StatusBadGateway:          "过多的请求",
 	StatusGatewayTimeout:      "请求超时",
 	NotToken:                  "没有token值",
+	StatusAdminFailed:         "失败",
+	StatusAdminSuccess:        "成功",
 }

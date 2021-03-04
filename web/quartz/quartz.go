@@ -1,10 +1,10 @@
 package quartz
 
 import (
-	cs "QiqiLike/constants"
-	"QiqiLike/datamodels/domain"
-	"QiqiLike/repositorys"
-	"QiqiLike/tools/redis"
+	cs "KiKo/constants"
+	"KiKo/datamodels/domain"
+	"KiKo/repositorys"
+	"KiKo/tools/redis"
 	"encoding/json"
 	"github.com/golang-module/carbon"
 	"log"

@@ -1,4 +1,4 @@
-module QiqiLike
+module KiKo
 
 go 1.13
 

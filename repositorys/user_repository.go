@@ -1,7 +1,7 @@
 package repositorys
 
 import (
-	"QiqiLike/datamodels/domain"
+	"KiKo/datamodels/domain"
 	"github.com/jinzhu/gorm"
 	"strconv"
 	"sync"
@@ -47,6 +47,12 @@ func (u *userRepository) GetUserManyRepo(params map[string]string) (users []doma
 	}
 	if query, ok := params["query"]; ok {
 		db = db.Where("tu.nick like ?", "%"+query+"%")
+	}
+	if userName, ok := params["userName"]; ok {
+		db = db.Where("tu.user_name like ?", "%"+userName+"%")
+	}
+	if phone, ok := params["phone"]; ok {
+		db = db.Where("tu.phone like ?", "%"+phone+"%")
 	}
 	page, _ := strconv.Atoi(params["page"])
 	limit, _ := strconv.Atoi(params["limit"])

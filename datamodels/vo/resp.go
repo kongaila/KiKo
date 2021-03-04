@@ -1,6 +1,6 @@
 package vo
 
-import cs "QiqiLike/constants"
+import cs "KiKo/constants"
 
 // 统一响应对象
 type RespVO struct {

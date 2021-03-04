@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"QiqiLike/datamodels/vo"
+	"KiKo/datamodels/vo"
 	"github.com/kataras/iris/v12"
 	"log"
 )

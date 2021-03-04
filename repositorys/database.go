@@ -1,7 +1,7 @@
 package repositorys
 
 import (
-	"QiqiLike/conf"
+	"KiKo/conf"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"

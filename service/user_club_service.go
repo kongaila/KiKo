@@ -1,8 +1,8 @@
 package service
 
 import (
-	"QiqiLike/datamodels/domain"
-	"QiqiLike/repositorys"
+	"KiKo/datamodels/domain"
+	"KiKo/repositorys"
 )
 
 type UserClubService interface {

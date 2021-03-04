@@ -1,7 +1,7 @@
 package main
 
 import (
-	"QiqiLike/datamodels/domain"
+	"KiKo/datamodels/domain"
 	"fmt"
 )
 

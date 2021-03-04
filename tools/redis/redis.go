@@ -1,7 +1,7 @@
 package redis
 
 import (
-	. "QiqiLike/server"
+	. "KiKo/server"
 	"github.com/garyburd/redigo/redis"
 )
 

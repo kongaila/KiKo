@@ -1,9 +1,9 @@
 package tools
 
 import (
-	"QiqiLike/conf"
-	cs "QiqiLike/constants"
-	"QiqiLike/datamodels"
+	"KiKo/conf"
+	cs "KiKo/constants"
+	"KiKo/datamodels"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/kataras/iris/v12"
 	"github.com/mitchellh/mapstructure"

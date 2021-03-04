@@ -1,9 +1,9 @@
 package service
 
 import (
-	"QiqiLike/datamodels/domain"
-	"QiqiLike/repositorys"
-	"QiqiLike/tools"
+	"KiKo/datamodels/domain"
+	"KiKo/repositorys"
+	"KiKo/tools"
 	"time"
 )
 

@@ -1,11 +1,11 @@
 package controllers
 
 import (
-	"QiqiLike/datamodels/domain"
-	"QiqiLike/datamodels/vo"
-	"QiqiLike/service"
-	"QiqiLike/tools"
-	"QiqiLike/tools/redis"
+	"KiKo/datamodels/domain"
+	"KiKo/datamodels/vo"
+	"KiKo/service"
+	"KiKo/tools"
+	"KiKo/tools/redis"
 	"fmt"
 	"github.com/kataras/iris/v12"
 	"strings"

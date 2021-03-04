@@ -1,10 +1,10 @@
 package controllers
 
 import (
-	"QiqiLike/datamodels/domain"
-	"QiqiLike/datamodels/vo"
-	"QiqiLike/service"
-	"QiqiLike/tools"
+	"KiKo/datamodels/domain"
+	"KiKo/datamodels/vo"
+	"KiKo/service"
+	"KiKo/tools"
 	"github.com/kataras/iris/v12"
 	"time"
 )

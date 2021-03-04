@@ -18,7 +18,7 @@ type TbClub struct {
 	MemberNum    int32     `json:"memberNum" gorm:"type:INT(11);"`
 	CreatedAt    time.Time `json:"createdAt" gorm:"type:DATETIME(0);"`
 	UpdatedAt    time.Time `json:"-" gorm:"type:DATETIME(0);"`
-	Creater      string    `json:"-" gorm:"type:VARCHAR(255);"`
+	Creater      string    `json:"creater" gorm:"type:VARCHAR(255);"`
 	Updater      string    `json:"-" gorm:"type:VARCHAR(255);"`
-	Status       int32     `json:"-" gorm:"type:type:INT(2);"`
+	Status       int32     `json:"status" gorm:"type:type:INT(2);"`
 }

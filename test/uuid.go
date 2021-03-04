@@ -1,7 +1,7 @@
 package main
 
 import (
-	"QiqiLike/tools"
+	"KiKo/tools"
 	"fmt"
 )
 
