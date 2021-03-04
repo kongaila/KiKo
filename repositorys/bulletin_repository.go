@@ -28,7 +28,7 @@ func (b *bulletinRepository) GetManyRepo(params map[string]string) (count int, b
 	db := b.source
 	db.Table("tb_bulletin a").Count(&count)
 	db = db.Limit(limit).Offset((page - 1) * limit)
-	db.Table("tb_bulletin").Find(&bs)
+	db.Table("tb_bulletin").Order("created_at desc").Find(&bs)
 	return
 }
 
