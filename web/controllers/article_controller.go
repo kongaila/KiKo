@@ -63,26 +63,26 @@ func (a *ArticleController) GetBy(uuid string) (result *vo.RespVO) {
 	return
 }
 
-func (a *ArticleController) PostRecommend() (result *vo.RespVO) {
-	uuid := a.Ctx.PostValue("uuid")
-	reportMsg := a.Ctx.PostValue("reportMsg")
-	if strings.EqualFold(uuid, "") {
-		result = vo.Req204RespVO(1, "数据有误", nil)
-		return
-	}
-	article := domain.TbArticle{
-		Uuid:      uuid,
-		ReportMsg: reportMsg,
-	}
-	if ok := a.AttrArticleService.ReportMsgSer(article); !ok {
-		result = vo.Req500RespVO(1, "服务器错误", nil)
-		return
-	}
-	result = vo.Req200RespVO(1, "查询成功", article)
-	return
-}
+//func (a *ArticleController) PostRecommend() (result *vo.RespVO) {
+//	uuid := a.Ctx.PostValue("uuid")
+//	reportMsg := a.Ctx.PostValue("reportMsg")
+//	if strings.EqualFold(uuid, "") {
+//		result = vo.Req204RespVO(1, "数据有误", nil)
+//		return
+//	}
+//	article := domain.TbArticle{
+//		Uuid:      uuid,
+//		ReportMsg: reportMsg,
+//	}
+//	if ok := a.AttrArticleService.ReportMsgSer(article); !ok {
+//		result = vo.Req500RespVO(1, "服务器错误", nil)
+//		return
+//	}
+//	result = vo.Req200RespVO(1, "查询成功", article)
+//	return
+//}
 
-// 举报文章 TODO
+// 举报文章
 func (a *ArticleController) PostReport() (result *vo.RespVO) {
 	uuid := a.Ctx.PostValue("uuid")
 	reportMsg := a.Ctx.PostValue("reportMsg")
