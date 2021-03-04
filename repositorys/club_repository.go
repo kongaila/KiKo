@@ -54,6 +54,9 @@ func (c *clubRepository) GetClubManyRepo(params map[string]string) (data []domai
 	// 只查询待审核的
 	if _, ok := params["check"]; ok {
 		db = db.Where("status = ?", 0)
+	} else {
+		// 否则只查询审核通过的
+		db = db.Where("status = ?", 1)
 	}
 	// 获取取指page，指定limit的记录
 	db.Limit(limit).Offset((page - 1) * limit).Order("created_at desc").Find(&data)
