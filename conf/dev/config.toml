@@ -27,8 +27,8 @@ title = "KiKo"
 [redis]
   addr = "127.0.0.1"
   port = 6379
-  database = 0
-  auth = ""
+  database = 5
+  auth = "154741"
   maxIdle = 2
   maxActive = 15
   idleTimeout = 2000
