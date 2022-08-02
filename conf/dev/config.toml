@@ -1,10 +1,12 @@
-# 服务名称
+title = "KiKo"
+
+# 服务相关
 [server]
-  name = "Qiqilike"
   address = ":1999"
 
-# 服务地址
-
+# API相关
+[api]
+  prefix = "/api/v1"
 
 # 日志级别
 [logger]
@@ -14,9 +16,29 @@
 [database]
   driver = "mysql"
 [mysql]
-  dbHost = "127.0.0.1"
-  dbPort = 5664
-  dbName = "tieba"
-  dbParams = "parseTime=true&loc=Local"
-  dbUser = "root"
-  dbPasswd = "kong"
+  addr = "127.0.0.1"
+  port = 5664
+  name = "tieba"
+  params = "parseTime=true&loc=Local"
+  user = "root"
+  pass = "kong"
+
+# Redis相关
+[redis]
+  addr = "127.0.0.1"
+  port = 6379
+  database = 5
+  auth = "154741"
+  maxIdle = 2
+  maxActive = 15
+  idleTimeout = 2000
+
+# kafka相关
+[kafka]
+  #host = "127.0.0.1"
+
+[upload]
+  image = "D:\\Commonly\\nginx\\nginx-1.16.1\\kikoUpload\\images"
+  video = "D:\\Commonly\\nginx\\nginx-1.16.1\\kikoUpload\\videos"
+  file = "D:\\Commonly\\nginx\\nginx-1.16.1\\kikoUpload\\files"
+
